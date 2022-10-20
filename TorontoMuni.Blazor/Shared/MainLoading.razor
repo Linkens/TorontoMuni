@@ -1,0 +1,28 @@
+﻿@if (IsLoading)
+{
+    <div class="d-flex justify-content-center align-items-center" style="height:100vh;">
+        <div class="flex-column">
+            <h1>@LoadingText</h1>
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" style="color:red; width:3rem; height:3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    @ChildContent
+}
+
+
+@code {
+    [Parameter]
+    public bool IsLoading { get; set; }
+    [Parameter]
+    public string LoadingText { get; set; } = "Loading...";
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

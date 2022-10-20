@@ -1,0 +1,65 @@
+﻿@page "/Batiments"
+<MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
+    <table style="width:100%">
+        <tr>
+            <th>Batiment</th>
+            <th>Type</th>
+            <th>Structure</th>
+            <th>Détail</th>
+        </tr>
+        @foreach (var item in Batiments)
+        {
+            <tr>
+                <td>@item.Categorie</td>
+                <td>@item.Structure</td>
+                <td>@item.Denomination</td>
+                <td>
+                    <button class="Ghost" @onclick="()=>Detail(item)">
+                        <span class="oi oi-cog"></span>
+                    </button>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" @onclick="AddBat">
+            <span class=" oi oi-plus"></span>
+        </button>
+    </div>
+</MainLoading>
+@code {
+    protected List<ChoiceList> Denomination;
+    protected List<Batiment> Batiments;
+    protected override async Task OnInitializedAsync()
+    {
+        DataServices.SetBusy("Chargement ...");
+        Batiments = await Context.Batiments.Include(b => b.Dates).ToListAsync();
+        Denomination = await Context.Choices.Where(c => c.Filter == ChoiceListEnum.Denomination).ToListAsync();
+        await Task.Delay(500);
+        await base.OnInitializedAsync();
+        DataServices.EndBusy();
+    }
+    protected async Task Detail(Batiment Bat)
+    {
+        await Dialog.OpenAsync<BatimentDetail>("", new Dictionary<string, object> { { "Batiment", Bat }, { "Denomination", Denomination }, { "c", Context } });
+    }
+    protected async Task AddBat()
+    {
+        var Bat = new Batiment { Denomination = "Nouvelle" };
+        Bat.Dates = new List<BatDates>();
+        var Return = await Dialog.OpenAsync<BatimentDetail>("", new Dictionary<string, object> { { "Batiment", Bat }, { "Denomination", Denomination }, { "c", Context } });
+        if (Return != null && (bool)Return)
+        {
+            Context.Add(Bat);
+            Batiments.Add(Bat);
+            DataServices.SetBusy("Sauvegarde ...");
+            StateHasChanged();
+            await Task.Delay(500);
+            await Context.SaveChangesAsync();
+            DataServices.EndBusy();
+            StateHasChanged();
+        }
+
+    }
+}

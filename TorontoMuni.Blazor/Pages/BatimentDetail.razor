@@ -1,0 +1,154 @@
+﻿@if (Batiment != null)
+{
+    <EditForm Model="this">
+
+        <div class="d-flex flex-column">
+            <label>Catégorie</label>
+            <InputSelect @bind-Value=Cate class="form-control">
+                @foreach (var item in typeof(BatCatEnum).GetEnumValues())
+                {
+                    <option value="@item">@item</option>
+                }
+            </InputSelect>
+            <label>Dénomination</label>
+            <input @bind-value=Batiment.Denomination type="text" class="form-control" list="ListDenom">
+            <datalist id="ListDenom">
+                @foreach (var item in GetDenom())
+                {
+                    <option>@item</option>
+                }
+
+            </datalist>
+            <label>Structure</label>
+            <InputSelect @bind-Value=Batiment.Structure class="form-control">
+                @foreach (var item in typeof(BatStructEnum).GetEnumValues())
+                {
+                    <option value="@item">@item</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div class="BeautyBox">
+            <h3 class="text-center">Dates</h3><br />
+            @if (Batiment.Dates != null && Batiment.Dates.Any())
+            {
+
+                <br />
+                @foreach (var item in @Batiment.Dates)
+                {
+                    <div class="row no-gutters">
+                        <div class="col d-flex  align-content-center   ">
+                            <InputSelect @bind-Value=@item.Type>
+                                @foreach (var item in typeof(DateTypeEnum).GetEnumValues())
+                                {
+
+                                    <option value="@item">@item</option>
+                                }
+                            </InputSelect>
+
+                        </div>
+                        <div class="col">
+                            <InputDate class="form-control" @bind-Value=@item.Date></InputDate>
+                        </div>
+                    </div>
+                }
+            }
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-secondary" @onclick="AddDate">
+                        Ajouter Date
+                    </button>
+                </div>
+        </div>
+        <div class="BeautyBox">
+           <h3 class="text-center">Valorisations</h3><br />
+            <label>Valeur d'acquisition</label>
+            <input class="form-control" @bind-value=@Batiment.ValAcqu />
+            <label>Valeur actuelle</label>
+            <input class="form-control" @bind-value=@Batiment.ValNow />
+            <label>Valeur de remplacement</label>
+            <input class="form-control" @bind-value=@Batiment.ValRemplacement />
+            <label>Valeur des travaux</label>
+            <input class="form-control" @bind-value=@Batiment.ValTravaux /> 
+            <label>Vetucité</label>
+            <input class="form-control" @bind-value=@Batiment.Vetucité />
+
+        </div>
+        <div class="BeautyBox">
+            <h3 class="text-center">Géométrie</h3><br />
+            <label>Longueur</label>
+            <input class="form-control" @bind-value=@Batiment.Longueur />
+            <label>Largeur</label>
+            <input class="form-control" @bind-value=@Batiment.Largeur />
+            <label>Profondeur</label>
+            <input class="form-control" @bind-value=@Batiment.Profondeur />
+            <label>Forme</label>
+            <InputSelect class="form-control" @bind-Value=@Batiment.Forme >
+                @foreach (var item in typeof(BatFormEnum).GetEnumValues())
+                {
+                    <option value="@item">@item</option>
+                }
+            </InputSelect>
+            <label>Surface</label>
+            <input class="form-control" @bind-value=@Batiment.Surface />
+            <label>Volume</label>
+            <input class="form-control" @bind-value=@Batiment.Volume />
+
+        </div>
+        <div class="BeautyBox">
+            <h3 class="text-center">Localisation</h3><br/>
+            <label>Pays</label>
+            <input class="form-control" @bind-value=@Batiment.Pays />
+            <label>Ville</label>
+            <input class="form-control" @bind-value=@Batiment.Ville />
+            <label>Code Postal</label>
+            <input class="form-control" @bind-value=@Batiment.CodePostal />
+                    <label>Numéro civique</label>
+            <input class="form-control" @bind-value=@Batiment.NumeroCivique />
+            <label>Nom de la rue, boulevard...</label>
+            <input class="form-control" @bind-value=@Batiment.Rue />
+            <label>Téléphone, fixe, mobile</label>
+            <input class="form-control" @bind-value=@Batiment.Telephone />
+            <label>Email</label>
+            <input class="form-control" @bind-value=@Batiment.Email />
+            <label>Position</label>
+            <input class="form-control" @bind-value=@Batiment.Position />
+
+        </div>
+        <div class="BeautyBox">
+            <h3 class="text-center">Description</h3><br />
+            <textarea style="height:10rem;" class="form-control" @bind="@Batiment.Description"></textarea>
+
+        </div>
+        <div class="BeautyBox">
+            <h3 class="text-center">Observations</h3><br />
+            <textarea style="height:10rem;" class="form-control" @bind="@Batiment.Observations"></textarea>
+
+        </div>
+    </EditForm>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-primary" @onclick=Save>
+            Sauvegarder
+        </button>
+    </div>
+}
+
+@code {
+    public BatCatEnum Cate 
+    {get{ return Batiment.Categorie; } set { Batiment.Categorie = value; Batiment.Denomination = ""; }}
+    [Parameter] public Batiment Batiment { get; set; }
+    [Parameter] public List<ChoiceList> Denomination { get; set; }
+    [Parameter] public TMContext c { get; set; }
+    public List<string> GetDenom()
+    {
+        return Denomination.Where(d => Batiment.Categorie.HasFlag((BatCatEnum)d.Key)).Select(d => d.Value).ToList();
+    }
+    protected async Task AddDate()
+    {
+        Batiment.Dates.Add(new BatDates() { Date = DateTime.Now });
+    }
+    protected async Task Save()
+    {
+        await c.SaveChangesAsync();
+        Dialog.Close(true);
+    }
+}

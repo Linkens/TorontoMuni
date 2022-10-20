@@ -1,0 +1,29 @@
+﻿@page "/Choices"
+<MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
+    <table style="width:100%">
+        <tr>
+            <th>Type</th>
+            <th>Clé</th>
+            <th>Valeur</th>
+        </tr>
+        @foreach (var c in Choices)
+        {
+            <tr>
+                <td>@c.Filter</td>
+                <td>@c.Key</td>
+                <td>@c.Value</td>
+            </tr>
+        }
+    </table>
+</MainLoading>
+@code {
+    protected List<ChoiceList> Choices;
+    protected override async Task OnInitializedAsync()
+    {
+        DataServices.SetBusy("Chargement ...");
+        Choices = await Context.Choices.ToListAsync();
+        await Task.Delay(500);
+        await base.OnInitializedAsync();
+        DataServices.EndBusy();
+    }
+}
