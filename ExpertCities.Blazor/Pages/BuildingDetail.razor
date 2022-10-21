@@ -1,0 +1,205 @@
+﻿@using SixLabors.ImageSharp
+@using SixLabors.ImageSharp.Processing
+@inject IStringLocalizer<BuildingDetail> Loc
+@if (Building != null)
+{
+    <EditForm Model="this">
+        <div class="BeautyBox">
+            @if( Building.Images !=null && Building.Images.Any())
+            {
+                <div class="d-flex justify-content-center">
+                <img src="data:image;base64,@System.Convert.ToBase64String(Building.Images.First().Image)" style="height:16rem;max-width:100%;border-radius:0.5rem;" />
+                </div>
+            }
+            <h3 class="text-center">@Loc["Building"]</h3>
+            <div class="d-flex flex-column">
+                <label>@Loc["Category"]</label>
+                <InputSelect @bind-Value=Cate class="form-control">
+                    @foreach (var item in typeof(BuildCatEnum).GetEnumValues())
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </InputSelect>
+                <label>@Loc["Name"]</label>
+                <input @bind-value=Building.Denomination type="text" class="form-control" list="ListDenom">
+                <datalist id="ListDenom">
+                    @foreach (var item in GetDenom())
+                    {
+                        <option>@item</option>
+                    }
+
+                </datalist>
+                <label>@Loc["Structure"]</label>
+                <InputSelect @bind-Value=Building.Structure class="form-control">
+                    @foreach (var item in typeof(BuildStructEnum).GetEnumValues())
+                    {
+                        <option value="@item">@item</option>
+                    }
+                </InputSelect>
+                <div class="DropArea" style="margin:20px">
+                  @*  @DropString*@
+                    <InputFile id="inputDrop" OnChange="OnInputFileChange"  /> @*@ondragenter="HandleDragEnter" @ondragleave="HandleDragLeave"*@
+                </div>
+            </div>
+        </div>
+        <div class="BeautyBox">
+            <h3 class="text-center">@Loc["Dates"]</h3>
+            <label>@Loc["Acquisition Date"]</label>
+            <InputDate class="form-control" @bind-Value=@Building.Date_Acquire></InputDate>
+            <label>@Loc["Commission Date"]</label>
+            <InputDate class="form-control" @bind-Value=@Building.Date_Commission></InputDate>
+            <label>@Loc["Garantee Date"]</label>
+            <InputDate class="form-control" @bind-Value=@Building.Date_Garantee></InputDate>
+            <label>@Loc["Other Date"]</label>
+            <InputDate class="form-control" @bind-Value=@Building.Date_Other></InputDate>
+        </div>
+        <div class="BeautyBox">
+            <h3 class="text-center">@Loc["Values"]</h3>
+            <label>@Loc["Acquirement Value"]</label>
+            <input class="form-control" @bind-value=@Building.Val_Acquire />
+            <label>@Loc["Actual Value"]</label>
+            <input class="form-control" @bind-value=@Building.Val_Now />
+            <label>@Loc["Remplacement Value"]</label>
+            <input class="form-control" @bind-value=@Building.Val_Remplace />
+            <label>@Loc["Works Value"]</label>
+            <input class="form-control" @bind-value=@Building.Val_Work />
+            <label>@Loc["State"]</label>
+            <input class="form-control" @bind-value=@Building.State />
+
+        </div>
+        <div class="BeautyBox">
+            <h3 class="text-center">Geometry</h3>
+            <label>@Loc["Length"]</label>
+            <input class="form-control" @bind-value=@Building.Length />
+            <label>@Loc["Width"]</label>
+            <input class="form-control" @bind-value=@Building.Width />
+            <label>@Loc["Depth"]</label>
+            <input class="form-control" @bind-value=@Building.Depth />
+            <label>@Loc["Shape"]</label>
+            <InputSelect class="form-control" @bind-Value=@Building.Shape>
+                @foreach (var item in typeof(BuildShapeEnum).GetEnumValues())
+                {
+                    <option value="@item">@item</option>
+                }
+            </InputSelect>
+            <label>@Loc["Surface"]</label>
+            <input class="form-control" @bind-value=@Building.Surface />
+            <label>@Loc["Volume"]</label>
+            <input class="form-control" @bind-value=@Building.Volume />
+
+        </div>
+        <div class="BeautyBox">
+            <h3 class="text-center">@Loc["Location"]</h3>
+            <label>@Loc["Country"]</label>
+            <input class="form-control" @bind-value=@Building.Country />
+            <label>@Loc["City"]</label>
+            <input class="form-control" @bind-value=@Building.City />
+            <label>@Loc["Zip code"]</label>
+            <input class="form-control" @bind-value=@Building.ZipCode />
+            <label>Numéro civique</label>
+            <input class="form-control" @bind-value=@Building.CivicNumber />
+            <label>Nom de la rue, boulevard...</label>
+            <input class="form-control" @bind-value=@Building.Street />
+            <label>Téléphone, fixe, mobile</label>
+            <input class="form-control" @bind-value=@Building.Telephone />
+            <label>Email</label>
+            <input class="form-control" @bind-value=@Building.Email />
+            <label>Position</label>
+            <input class="form-control" @bind-value=@Building.Position />
+
+        </div>
+        <div class="BeautyBox">
+            <h3 class="text-center">Description</h3>
+            <textarea style="height:10rem;" class="form-control" @bind="@Building.Description"></textarea>
+
+        </div>
+        <div class="BeautyBox">
+            <h3 class="text-center">Observations</h3>
+            <textarea style="height:10rem;" class="form-control" @bind="@Building.Observation"></textarea>
+
+        </div>
+    </EditForm>
+    <div style="margin:3rem 0rem;"/>
+    <div style="position:sticky;bottom:0;padding:0.5rem; background-color:#b267ccef; ">
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" @onclick=Print>
+                <span oi oi-print></span>
+            </button>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" @onclick=Save>
+                Sauvegarder
+            </button>
+        </div>
+    </div>
+}
+
+@code {
+    public BuildCatEnum Cate
+    { get { return Building.Category; } set { Building.Category = value; Building.Denomination = ""; } }
+    [Parameter] public Building Building { get; set; }
+    [Parameter] public List<ChoiceList> Denomination { get; set; }
+    [Parameter] public ECContext c { get; set; }
+    public List<string> GetDenom()
+    {
+        return Denomination.Where(d => Building.Category.HasFlag((BuildCatEnum)d.Key)).Select(d => d.Value).ToList();
+    }
+
+    protected async Task Save()
+    {
+        await c.SaveChangesAsync();
+        Dialog.Close(true);
+    }
+    protected async Task Print()
+    {
+        await c.SaveChangesAsync();
+        Dialog.Close(true);
+    }
+    async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        //if (IsBusy) return;
+        //IsBusy = true;
+        //DropString = DropStringDefault;
+        //DropClass = string.Empty;
+        List<string> AcceptedFileTypes = new List<string>() { "image/png", "image/jpeg", "image/jpg", "image/gif", "image/x-icon" };
+        if (!AcceptedFileTypes.Contains(e.File.ContentType))
+        {
+            Notify.Notify(NotificationSeverity.Error, string.Format(Loc["File type {0} unsupported"], e.File.ContentType));
+            return;
+        }
+        try
+        {
+            byte[] Bytes;
+            Image TestImage;
+            using (var stream = e.File.OpenReadStream(maxAllowedSize: 1024 * 1024 * 10))
+            {
+                TestImage = await Image.LoadAsync(stream);
+            }
+            float MaxWidth = 500;
+            float MaxHeight = 400;
+            var RatW = TestImage.Width / MaxWidth;
+            var RatH = TestImage.Height / MaxHeight;
+            var MaxRat = Math.Max(RatH, RatW);
+            if (MaxRat > 1) TestImage.Mutate(x => x.Resize((int)(TestImage.Width / MaxRat), (int)(TestImage.Height / MaxRat)));
+            using (var mem = new MemoryStream())
+            {
+                await TestImage.SaveAsJpegAsync(mem);
+                Bytes = mem.ToArray();
+            }
+            Building.Images = new List<BuildingImage>();
+            Building.Images.Add(new BuildingImage { Image = Bytes });
+        }
+        catch (Exception ex)
+        {
+            if (ex.Message.Contains("exceeds the maximum"))
+            {
+                Notify.Notify(NotificationSeverity.Error, $"Fichier trop gros 4Mo maximum !");
+            }
+            else
+            {
+                Notify.Notify(NotificationSeverity.Error, $"Erreur inconnue ! " + ex.Message);
+            }
+        }
+       // IsBusy = false;
+    }
+}
