@@ -117,46 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Acquirement Value" xml:space="preserve">
-    <value>Acquirement Value</value>
+  <data name="Buildings" xml:space="preserve">
+    <value>Bâtiments</value>
   </data>
-  <data name="Acquisition Date" xml:space="preserve">
-    <value>Acquisition Date</value>
+  <data name="Equipement" xml:space="preserve">
+    <value>Équipements</value>
   </data>
-  <data name="Actual Value" xml:space="preserve">
-    <value>Actual Value</value>
+  <data name="Home" xml:space="preserve">
+    <value>Accueil</value>
   </data>
-  <data name="Category" xml:space="preserve">
-    <value>Category</value>
+  <data name="Inventory" xml:space="preserve">
+    <value>Inventaire</value>
   </data>
-  <data name="Commission Date" xml:space="preserve">
-    <value>Commission Date</value>
+  <data name="Roads" xml:space="preserve">
+    <value>Routes</value>
   </data>
-  <data name="Dates" xml:space="preserve">
-    <value>Dates</value>
-  </data>
-  <data name="Garantee Date" xml:space="preserve">
-    <value>Garantee Date</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Other Date" xml:space="preserve">
-    <value>Other Date</value>
-  </data>
-  <data name="Remplacement Value" xml:space="preserve">
-    <value>Remplacement Value</value>
-  </data>
-  <data name="State" xml:space="preserve">
-    <value>State</value>
-  </data>
-  <data name="Structure" xml:space="preserve">
-    <value>Structure</value>
-  </data>
-  <data name="Values" xml:space="preserve">
-    <value>Values</value>
-  </data>
-  <data name="Works Value" xml:space="preserve">
-    <value>Works Value</value>
+  <data name="Welcome to asset management home page" xml:space="preserve">
+    <value>Bienvenue sur l'accueil de la gestion des actifs municipaux</value>
   </data>
 </root>

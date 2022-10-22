@@ -39,33 +39,17 @@ builder.Services.AddDbContext<ECContext>(ServiceLifetime.Transient);
 //});
 using (var c = new ECContext())
 {
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 1, Value = "Résidence" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 1, Value = "Chalet" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 1, Value = "Ranch" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 2, Value = "Tour administratif" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 2, Value = "Hôtel de ville" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 2, Value = "Caserne des pompiers" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 2, Value = "Parlement" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 2, Value = "Président" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 2, Value = "Ministères" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 4, Value = "Complexe sportif"});
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 4, Value = "Maison ou centre culturel" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 4, Value = "Salle de spectacle" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 8, Value = "Magasin" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 8, Value = "Condominium" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 16, Value = "Usine" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 16, Value = "Entrepôt" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 32, Value = "Grange" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 32, Value = "Entrepôt" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 64, Value = "Centre hospitalier" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 64, Value = "Résidence pour personnes âgées" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 128, Value = "Université" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 128, Value = "Collège" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 128, Value = "Centre de formation scolaire" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 128, Value = "Secondaire" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 128, Value = "Primaire" });
-    c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = 128, Value = "Maternel " });
-
+    var Keys = new List<int> { 1, 1, 1, 2, 2, 2, 2, 2, 2, 4, 4, 4, 8, 8, 16, 16, 32, 32, 64, 64, 128, 128, 128, 128, 128, 128 };
+    var CA = new List<string> { "Résidence", "Chalet", "Ranch", "Tour administratif", "Hôtel de ville", "Caserne des pompiers"
+        , "Parlement", "Président", "Ministères", "Complexe sportif", "Maison ou centre culturel", "Salle de spectacle", "Magasin", "Condominium",
+        "Usine", "Entrepôt", "Grange", "Entrepôt", "Centre hospitalier", "Résidence pour personnes âgées", "Université", "Collège", "Centre de formation scolaire", "Secondaire", "Primaire", "Maternel" };
+    var Values = new List<string> { "Home", "Cabin", "Ranch", "Administrative tower", "City Hall", "Fire station"
+        , "Parliament", "President", "Ministries", "Sports Complex", "Cultural Center", "Theater", "Shop", "Condominium",
+        "Factory", "Warehouse", "Barn", "Warehouse", "Hospital Center", "Retirement home", "University", "Middle School", "School training center", "High School", "School", "Kindergarten" };
+    for (int i = 0; i < Keys.Count; i++)
+    {
+        c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = Keys[i], Value = Values[i] , ValueCA = CA[i] });
+    }
     var b = new Building { Category = BuildCatEnum.School, Denomination = "Ecole", Structure = BuildStructEnum.Concrete };
     b.Country = "Canada";b.City = "Toronto"; b.CivicNumber = "15665421-4"; b.Telephone = "+4523884716"; b.Val_Acquire =1500000;b.Length = 45; b.Width = 50; b.Shape = BuildShapeEnum.Square; b.Date_Acquire = new DateTime(1970, 10, 5);b.Date_Commission = new DateTime(1970, 10, 5);
     c.Batiments.Add(b);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExpertCities.Data
 {
-    public class ChoiceList
+    public class ChoiceList : ILocalize
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,6 +16,7 @@ namespace ExpertCities.Data
         public ChoiceListEnum Filter { get; set; }
         public int Key { get; set; }
         public string Value { get; set; }
+        public string ValueCA { get; set; }
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿@page "/Buildings"
 
-
 @inject IStringLocalizer<BuildingList> Localizer
+<PageTitle>@Localizer["Building list"]</PageTitle>
 <MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
     <table style="width:100%">
         <tr>
@@ -10,7 +10,7 @@
             <th>Structure</th>
             <th>@Localizer["Detail"]</th>
         </tr>
-        @foreach (var item in Batiments)
+        @foreach (var item in Buildings)
         {
             <tr>
                 <td>@item.Category</td>
@@ -32,13 +32,13 @@
     </div>
 </MainLoading>
 @code {
-    protected List<ChoiceList> Denomination;
-    protected List<Building> Batiments;
+    protected List<ChoiceList> Denominations;
+    protected List<Building> Buildings;
     protected override async Task OnInitializedAsync()
     {
         DataServices.SetBusy(GlobalLoc["Loading"]);
-        Batiments = await Context.Batiments.ToListAsync();
-        Denomination = await Context.Choices.Where(c => c.Filter == ChoiceListEnum.Denomination).ToListAsync();
+        Buildings = await Context.Batiments.ToListAsync();
+        Denominations = await Context.Choices.Where(c => c.Filter == ChoiceListEnum.Denomination).ToListAsync();
         await Task.Delay(500);
         await base.OnInitializedAsync();
         DataServices.EndBusy();
@@ -46,17 +46,18 @@
     protected async Task Detail(Building Bat)
     {
         await Context.Entry(Bat).Collection(b => b.Images).LoadAsync();
-        await Dialog.OpenAsync<BuildingDetail>("Informations générale du bâtiment", new Dictionary<string, object> { { "Building", Bat }, { "Denomination", Denomination }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
+        await Dialog.OpenAsync<BuildingDetail>("Informations générale du bâtiment", 
+        new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations.Select(d => new EntityLocalizer<ChoiceList>(d)).ToList() }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
     }
     protected async Task AddBat()
     {
         var Bat = new Building { Denomination = "Nouvelle" };
-        var Return = await Dialog.OpenAsync<BuildingDetail>("Informations générale du bâtiment", new Dictionary<string, object> { { "Building", Bat }, { "Denomination", Denomination }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
+        var Return = await Dialog.OpenAsync<BuildingDetail>("Informations générale du bâtiment", new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
 
         if (Return != null && (bool)Return)
         {
             Context.Add(Bat);
-            Batiments.Add(Bat);
+            Buildings.Add(Bat);
             DataServices.SetBusy(GlobalLoc["Loading"]);
             StateHasChanged();
             await Task.Delay(500);

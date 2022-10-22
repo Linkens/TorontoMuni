@@ -117,10 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Buildings" xml:space="preserve">
-    <value>Buildings</value>
+  <data name="Account &amp; Finance" xml:space="preserve">
+    <value>Budget &amp; Finance</value>
+  </data>
+  <data name="Asset Management" xml:space="preserve">
+    <value>Gestion d'Actifs</value>
+  </data>
+  <data name="Common" xml:space="preserve">
+    <value>Commun</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Accueil</value>
+  </data>
+  <data name="Human Resource" xml:space="preserve">
+    <value>Ressources Humaine</value>
+  </data>
+  <data name="Welcome to asset management home page" xml:space="preserve">
+    <value>Bienvenue sur l'accueil de la gestion des actifs municipaux</value>
   </data>
 </root>

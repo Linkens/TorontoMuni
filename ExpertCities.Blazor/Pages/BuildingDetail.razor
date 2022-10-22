@@ -138,11 +138,11 @@
     public BuildCatEnum Cate
     { get { return Building.Category; } set { Building.Category = value; Building.Denomination = ""; } }
     [Parameter] public Building Building { get; set; }
-    [Parameter] public List<ChoiceList> Denomination { get; set; }
+    [Parameter] public List<EntityLocalizer<ChoiceList>> Denominations { get; set; }
     [Parameter] public ECContext c { get; set; }
     public List<string> GetDenom()
     {
-        return Denomination.Where(d => Building.Category.HasFlag((BuildCatEnum)d.Key)).Select(d => d.Value).ToList();
+        return Denominations.Where(d => Building.Category.HasFlag((BuildCatEnum)d.Entity.Key)).Select(d => d[""].Value).ToList();
     }
 
     protected async Task Save()
