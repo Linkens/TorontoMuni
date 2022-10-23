@@ -54,8 +54,8 @@ namespace ExpertCities.Data
         public void PrintTitle(Building Build, PdfPage p, IStringLocalizer Loc)
         {
             CurrentY = 30f;
-            var H = GFX.MeasureString(Loc["Building"], HeaderFont).Height;
-            GFX.DrawString(Loc["Building"], HeaderFont, HeaderBrush, 10, CurrentY);
+            var H = GFX.MeasureString(Loc["Building general data"], HeaderFont).Height;
+            GFX.DrawString(Loc["Building general data"], HeaderFont, HeaderBrush, 10, CurrentY);
             CurrentY += H;
             GFX.DrawString($"{Loc["Category"]} : {Build.Category}", HeaderFont, HeaderBrush, 10, CurrentY);
             CurrentY += H;

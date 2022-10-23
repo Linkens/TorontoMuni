@@ -126,6 +126,9 @@
   <data name="Actual Value" xml:space="preserve">
     <value>Valeur actuelle</value>
   </data>
+  <data name="Building general data" xml:space="preserve">
+    <value>Informations générale du bâtiment</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="BuildingDetail.fr-CA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>buildingdetail.fr-ca.resx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
