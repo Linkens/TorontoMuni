@@ -37,7 +37,7 @@
     protected override async Task OnInitializedAsync()
     {
         DataServices.SetBusy(GlobalLoc["Loading"]);
-        Buildings = await Context.Batiments.ToListAsync();
+        Buildings = await Context.Buildings.ToListAsync();
         Denominations = await Context.Choices.Where(c => c.Filter == ChoiceListEnum.Denomination).ToListAsync();
         await Task.Delay(500);
         await base.OnInitializedAsync();
@@ -46,13 +46,13 @@
     protected async Task Detail(Building Bat)
     {
         await Context.Entry(Bat).Collection(b => b.Images).LoadAsync();
-        await Dialog.OpenAsync<BuildingDetail>("Informations générale du bâtiment", 
+        await Dialog.OpenAsync<BuildingDetail>(GlobalLoc["Building general data"],
         new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations.Select(d => new EntityLocalizer<ChoiceList>(d)).ToList() }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
     }
     protected async Task AddBat()
     {
         var Bat = new Building { Denomination = "Nouvelle" };
-        var Return = await Dialog.OpenAsync<BuildingDetail>("Informations générale du bâtiment", new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
+        var Return = await Dialog.OpenAsync<BuildingDetail>(GlobalLoc["Building general data"], new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
 
         if (Return != null && (bool)Return)
         {

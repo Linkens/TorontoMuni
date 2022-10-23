@@ -1,0 +1,33 @@
+﻿@page "/Building/{ID}"
+@inject IStringLocalizer<BuildingDetailView> Loc
+<MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
+    @if (Building != null)
+    {
+        <h1 class="text-center">@GlobalLoc["Building general data"]</h1>
+        <BuildingDetail Building="Building" c="Context" Denominations="List"></BuildingDetail>
+    }
+    else
+    {
+        <h2 class="text-center">@Loc["No building with this identifier"]</h2>
+    }
+</MainLoading>
+@code {
+    [Parameter] public string ID { get; set; }
+    [Parameter] public Building Building { get; set; }
+    [Parameter] public List<EntityLocalizer<ChoiceList>> List { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        DataServices.SetBusy(GlobalLoc["Loading"]);
+        if (int.TryParse(ID, out int Value))
+        {
+            Building = await Context.Buildings.Include(b=>b.Images).FirstOrDefaultAsync(b => b.ID == Value);
+            if(Building != null)
+            {
+                var l = await Context.Choices.Where(c => c.Filter == ChoiceListEnum.Denomination).ToListAsync();
+                List = l.Select(v => new EntityLocalizer<ChoiceList>(v)).ToList();
+            }
+        }
+        await base.OnInitializedAsync();
+        DataServices.EndBusy();
+    }
+}

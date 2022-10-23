@@ -9,6 +9,7 @@ using System.Globalization;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseWebRoot("wwwroot").UseStaticWebAssets();
 var SupportedCulture = new[] { "en-US", "fr-CA" };
 
 // Add services to the container.
@@ -52,8 +53,8 @@ using (var c = new ECContext())
     }
     var b = new Building { Category = BuildCatEnum.School, Denomination = "Ecole", Structure = BuildStructEnum.Concrete };
     b.Country = "Canada";b.City = "Toronto"; b.CivicNumber = "15665421-4"; b.Telephone = "+4523884716"; b.Val_Acquire =1500000;b.Length = 45; b.Width = 50; b.Shape = BuildShapeEnum.Square; b.Date_Acquire = new DateTime(1970, 10, 5);b.Date_Commission = new DateTime(1970, 10, 5);
-    c.Batiments.Add(b);
-    c.Batiments.Add(new Building { Category = BuildCatEnum.Residential, Denomination = "Résidence", Structure = BuildStructEnum.Concrete });
+    c.Buildings.Add(b);
+    c.Buildings.Add(new Building { Category = BuildCatEnum.Residential, Denomination = "Résidence", Structure = BuildStructEnum.Concrete });
     c.SaveChanges();
 }
 var app = builder.Build();

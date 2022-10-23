@@ -11,7 +11,9 @@ h1:focus {
 a, .btn-link {
     color: #0071c1;
 }
-
+.input-group>.form-control {
+    height:unset;
+}
 .btn-primary {
     color: #fff;
     background-color: #641bc2;

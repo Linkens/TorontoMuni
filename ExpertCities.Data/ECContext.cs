@@ -9,7 +9,7 @@ namespace ExpertCities.Data
 {
     public class ECContext : DbContext
     {
-        public DbSet<Building> Batiments { get; set; }
+        public DbSet<Building> Buildings { get; set; }
         public DbSet<ChoiceList> Choices { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

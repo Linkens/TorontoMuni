@@ -136,6 +136,9 @@
   <data name="City" xml:space="preserve">
     <value>Ville</value>
   </data>
+  <data name="Civic number" xml:space="preserve">
+    <value>Numéro civique</value>
+  </data>
   <data name="Commission Date" xml:space="preserve">
     <value>Date de mise en service</value>
   </data>
@@ -153,6 +156,9 @@
   </data>
   <data name="Garantee Date" xml:space="preserve">
     <value>Date de garantie</value>
+  </data>
+  <data name="Land line, mobile phone" xml:space="preserve">
+    <value>Téléphone, fixe, mobile</value>
   </data>
   <data name="Length" xml:space="preserve">
     <value>Longueur</value>
@@ -174,6 +180,9 @@
   </data>
   <data name="State" xml:space="preserve">
     <value>État actuel</value>
+  </data>
+  <data name="Street name, road ..." xml:space="preserve">
+    <value>Nom de la rue, boulevard...</value>
   </data>
   <data name="Structure" xml:space="preserve">
     <value>Structure</value>
