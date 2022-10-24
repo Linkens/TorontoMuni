@@ -1,4 +1,21 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+:root {
+    --MainColor: #633A88;
+    --MainColorAccent: #4A226F;
+    --MainColorBold: #2B0949;
+    --MainColorDisabledAccent: #845EA6;
+    --MainColorDisabled: #B294CD;
+    --AccentColor: #95397E;
+    --AccentColorBold: #791E62;
+    --AccentColorAccent: #50053D;
+    --AccentColorDisabledAccent: #D797C7;
+    --AccentColorDisabled: #DB661A1;
+    --SecondaryColor: #4A418D;
+    --SecondaryColorBold: #150E4B;
+    --SecondaryColorAccent: #6E66AB;
+    --SecondaryColorDisabledAccent: #6E66AB;
+    --SecondaryColorDisabled: #A19AD0;
+}
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -11,19 +28,62 @@ h1:focus {
 a, .btn-link {
     color: #0071c1;
 }
+.sidebar {
+    background-image: linear-gradient(180deg, var(--SecondaryColorBold) 0%, var(--MainColor) 70%);
+    /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
+}
+
 .input-group>.form-control {
     height:unset;
 }
 .btn-primary {
     color: #fff;
-    background-color: #641bc2;
-    border-color: #401576;
+    background-color: var(--MainColor);
+    border-color: var(--MainColorBold);
 }
-.btn-primary:hover {
+    .btn-primary:hover {
+        color: #fff;
+        background-color: var(--MainColorBold);
+        border-color: var(--MainColorAccent);
+    }
+    .btn-primary:disabled, .btn-primary:disabled:hover {
+        color: #fff;
+        background-color: var(--MainColorDisabled);
+        border-color: var(--MainColorDisabledAccent);
+    }
+.btn-secondary {
     color: #fff;
-    background-color: #7d53b4;
-    border-color: #5d20aa;
+    background-color: var(--SecondaryColor);
+    border-color: var(--SecondaryColorBold);
 }
+
+    .btn-secondary:hover {
+        color: #fff;
+        background-color: var(--SecondaryColorBold);
+        border-color: var(--SecondaryColorAccent);
+    }
+    .btn-secondary:disabled:hover, .btn-secondary:disabled {
+        color: #fff;
+        background-color: var(--SecondaryColorDisabled);
+        border-color: var(--SecondaryColorDisabledAccent);
+    }
+.btn-accent {
+    color: #fff;
+    background-color: var(--AccentColor);
+    border-color: var(--AccentColorBold);
+}
+
+    .btn-accent:hover {
+        color: #fff;
+        background-color: var(--AccentColorBold);
+        border-color: var(--AccentColorAccent);
+    }
+
+    .btn-accent:disabled:hover, .btn-accent:disabled {
+        color: #fff;
+        background-color: var(--AccentColorDisabled);
+        border-color: var(--AccentColorDisabledAccent);
+    }
 .btn-light {
     color: #000;
     background-color: #c6c3ca;
