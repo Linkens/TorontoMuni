@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Components.Web;
 using Radzen;
 using ExpertCities.Blazor.Data;
 using ExpertCities.Blazor;
-using ExpertCities.Data;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.DependencyInjection;
+using ExpertCities.Data.Entities;
+using ExpertCities.Data.Tools;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseWebRoot("wwwroot").UseStaticWebAssets();

@@ -11,6 +11,8 @@ using PdfSharpCore.Fonts;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 using QRCoder;
+using ExpertCities.Data.Entities;
+
 namespace ExpertCities.Data
 {
     public class PDFGenerator : IDisposable
@@ -34,7 +36,7 @@ namespace ExpertCities.Data
             HeaderFont = new XFont("Calibri", 12, XFontStyle.Regular);
             ValueFont = new XFont("Calibri", 8, XFontStyle.Regular);
             BoldFont = new XFont("Calibri", 8, XFontStyle.Bold);
-            HeaderBrush= new XSolidBrush(XColors.Black);
+            HeaderBrush = new XSolidBrush(XColors.Black);
         }
         public MemoryStream GetBuilding(Building Build, string urlPath, IStringLocalizer Loc)
         {
@@ -42,8 +44,13 @@ namespace ExpertCities.Data
             Doc = new PdfDocument();
             var p = Doc.AddPage();
             GFX = XGraphics.FromPdfPage(p);
-            PrintTitle(Build, p, Loc);
+            CurrentY = 10;
+            PrintImage(Build, p);
+            CurrentY = 10;
             PrintQR(urlPath, p);
+            CurrentY = 160f;
+
+            PrintTitle(Build, p, Loc);
 
 
 
@@ -53,7 +60,6 @@ namespace ExpertCities.Data
         }
         public void PrintTitle(Building Build, PdfPage p, IStringLocalizer Loc)
         {
-            CurrentY = 30f;
             var H = GFX.MeasureString(Loc["Building general data"], HeaderFont).Height;
             GFX.DrawString(Loc["Building general data"], HeaderFont, HeaderBrush, 10, CurrentY);
             CurrentY += H;
@@ -64,9 +70,23 @@ namespace ExpertCities.Data
             GFX.DrawString($"{Loc["Structure"]} : {Build.Structure}", HeaderFont, HeaderBrush, 10, CurrentY);
 
         }
+        public void PrintImage(Building Build, PdfPage p)
+        {
+            if (Build.Images.Any())
+            {
+                var Im = Build.Images.FirstOrDefault();
+                var ImageStream = new MemoryStream();
+                ImageStream.Write(Im.Image, 0, Im.Image.Length);
+                ImageStream.Position = 0;
+                var xim = XImage.FromStream(() => ImageStream);
+                xim.Interpolate = false;
+                var Imy = 136;
+                var Imx = xim.PixelWidth * Imy / xim.PixelHeight;
+                GFX.DrawImage(xim, (p.Width.Point - 156) / 2 - Imx / 2, CurrentY, Imx, Imy);
+            }
+        }
         public void PrintQR(string urlPath, PdfPage p)
         {
-            CurrentY = 10;
             var Payload = new PayloadGenerator.Url(urlPath);
             var Data = new PngByteQRCode(QRCodeGenerator.GenerateQrCode(Payload));
             var ImageStream = new MemoryStream();

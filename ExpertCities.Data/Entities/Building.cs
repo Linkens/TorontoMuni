@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ExpertCities.Data.Tools;
 
-namespace ExpertCities.Data
+namespace ExpertCities.Data.Entities
 {
     public class Building
     {
@@ -42,7 +43,7 @@ namespace ExpertCities.Data
     }
     public class BuildingImage
     {
-        [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         public int Building_ID { get; set; }

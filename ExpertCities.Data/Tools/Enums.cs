@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpertCities.Data
+namespace ExpertCities.Data.Tools
 {
     public enum BuildCatEnum
     {
-        Residential =1, Administrative = 2, Recreational = 4, Commercial = 8, Industrial = 16, Agricultural = 32, Hospital = 64, School = 128
+        Residential = 1, Administrative = 2, Recreational = 4, Commercial = 8, Industrial = 16, Agricultural = 32, Hospital = 64, School = 128
     }
     public enum BuildStructEnum
     {
@@ -24,6 +24,6 @@ namespace ExpertCities.Data
     }
     public enum DateTypeEnum
     {
-        Acquired = 1, Commissioning = 2, Guarantee = 3 , Other
+        Acquired = 1, Commissioning = 2, Guarantee = 3, Other
     }
 }
