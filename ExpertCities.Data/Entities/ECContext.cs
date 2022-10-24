@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpertCities.Data.Entities
+namespace ExpertCities.Data
 {
     public class ECContext : DbContext
     {

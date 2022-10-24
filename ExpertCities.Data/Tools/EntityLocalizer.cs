@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpertCities.Data.Tools
+namespace ExpertCities.Data
 {
     public class EntityLocalizer<T> : IStringLocalizer<ILocalize> where T : ILocalize
     {

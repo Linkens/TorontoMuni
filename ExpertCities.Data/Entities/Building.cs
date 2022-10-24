@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ExpertCities.Data.Tools;
 
-namespace ExpertCities.Data.Entities
+namespace ExpertCities.Data
 {
     public class Building
     {

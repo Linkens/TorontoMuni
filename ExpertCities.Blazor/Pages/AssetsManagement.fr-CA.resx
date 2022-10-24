@@ -135,4 +135,7 @@
   <data name="Welcome to asset management home page" xml:space="preserve">
     <value>Bienvenue sur l'accueil de la gestion des actifs municipaux</value>
   </data>
+  <data name="Works" xml:space="preserve">
+    <value>Travaux</value>
+  </data>
 </root>

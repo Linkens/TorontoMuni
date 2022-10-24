@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpertCities.Data.Tools
+namespace ExpertCities.Data
 {
     public interface ILocalize
     {

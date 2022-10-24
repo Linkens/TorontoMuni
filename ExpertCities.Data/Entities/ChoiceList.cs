@@ -5,9 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ExpertCities.Data.Tools;
 
-namespace ExpertCities.Data.Entities
+namespace ExpertCities.Data
 {
     public class ChoiceList : ILocalize
     {

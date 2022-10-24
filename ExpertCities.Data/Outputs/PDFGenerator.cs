@@ -11,7 +11,6 @@ using PdfSharpCore.Fonts;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 using QRCoder;
-using ExpertCities.Data.Entities;
 
 namespace ExpertCities.Data
 {

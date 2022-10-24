@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpertCities.Data.Tools
+namespace ExpertCities.Data
 {
     public enum BuildCatEnum
     {
@@ -25,5 +25,9 @@ namespace ExpertCities.Data.Tools
     public enum DateTypeEnum
     {
         Acquired = 1, Commissioning = 2, Guarantee = 3, Other
+    } 
+    public enum WorkStateEnum
+    {
+        WorkOrder = 1, Completed = 2, Verify = 4
     }
 }
