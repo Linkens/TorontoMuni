@@ -1,21 +1,6 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
-:root {
-    --MainColor: #633A88;
-    --MainColorAccent: #4A226F;
-    --MainColorBold: #2B0949;
-    --MainColorDisabledAccent: #845EA6;
-    --MainColorDisabled: #B294CD;
-    --AccentColor: #95397E;
-    --AccentColorBold: #791E62;
-    --AccentColorAccent: #50053D;
-    --AccentColorDisabledAccent: #D797C7;
-    --AccentColorDisabled: #DB661A1;
-    --SecondaryColor: #4A418D;
-    --SecondaryColorBold: #150E4B;
-    --SecondaryColorAccent: #6E66AB;
-    --SecondaryColorDisabledAccent: #6E66AB;
-    --SecondaryColorDisabled: #A19AD0;
-}
+@import "Theme.css";
+
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -36,65 +21,6 @@ a, .btn-link {
 .input-group>.form-control {
     height:unset;
 }
-.btn-primary {
-    color: #fff;
-    background-color: var(--MainColor);
-    border-color: var(--MainColorBold);
-}
-    .btn-primary:hover {
-        color: #fff;
-        background-color: var(--MainColorBold);
-        border-color: var(--MainColorAccent);
-    }
-    .btn-primary:disabled, .btn-primary:disabled:hover {
-        color: #fff;
-        background-color: var(--MainColorDisabled);
-        border-color: var(--MainColorDisabledAccent);
-    }
-.btn-secondary {
-    color: #fff;
-    background-color: var(--SecondaryColor);
-    border-color: var(--SecondaryColorBold);
-}
-
-    .btn-secondary:hover {
-        color: #fff;
-        background-color: var(--SecondaryColorBold);
-        border-color: var(--SecondaryColorAccent);
-    }
-    .btn-secondary:disabled:hover, .btn-secondary:disabled {
-        color: #fff;
-        background-color: var(--SecondaryColorDisabled);
-        border-color: var(--SecondaryColorDisabledAccent);
-    }
-.btn-accent {
-    color: #fff;
-    background-color: var(--AccentColor);
-    border-color: var(--AccentColorBold);
-}
-
-    .btn-accent:hover {
-        color: #fff;
-        background-color: var(--AccentColorBold);
-        border-color: var(--AccentColorAccent);
-    }
-
-    .btn-accent:disabled:hover, .btn-accent:disabled {
-        color: #fff;
-        background-color: var(--AccentColorDisabled);
-        border-color: var(--AccentColorDisabledAccent);
-    }
-.btn-light {
-    color: #000;
-    background-color: #c6c3ca;
-    border-color: #adaab1;
-}
-
-    .btn-light:hover {
-        color: #000;
-        background-color: #e0dde4;
-        border-color: #c6c3ca;
-    }
 
 .content {
     padding-top: 1.1rem;
@@ -117,11 +43,7 @@ a, .btn-link {
     padding: unset;
     color: inherit;
 }
-.BeautyBox {
-    box-shadow: 1px 1px 5px #b267cc;
-    padding: 0.4rem;
-    margin: 0.2rem;
-}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

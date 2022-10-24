@@ -1,10 +1,11 @@
 ﻿@using SixLabors.ImageSharp
 @using SixLabors.ImageSharp.Processing
+
 @inject IStringLocalizer<BuildingDetail> Loc
 @if (Building != null)
 {
     <EditForm Model="this">
-        <div class="BeautyBox">
+        <div class="box-primary">
             @if (Building.Images != null && Building.Images.Any())
             {
                 <div class="d-flex justify-content-center">
@@ -42,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="BeautyBox">
+        <div class="box-primary">
             <h3 class="text-center">@Loc["Dates"]</h3>
             <div class="row no-gutters">
                 <div class="col-lg-6">
@@ -59,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="BeautyBox">
+        <div class="box-primary">
             <h3 class="text-center">@Loc["Values"]</h3>
             <div class="row">
                 <div class="col-lg-6">
@@ -113,7 +114,7 @@
 
 
         </div>
-        <div class="BeautyBox">
+        <div class="box-primary">
             <h3 class="text-center">Geometry</h3>
             <div class="row no-gutters">
                 <div class="col-lg-6">
@@ -145,7 +146,7 @@
 
 
         </div>
-        <div class="BeautyBox">
+        <div class="box-primary">
             <h3 class="text-center">@Loc["Location"]</h3>
             <div class="row">
                 <div class="col-lg-6">
@@ -172,21 +173,21 @@
 
 
         </div>
-        <div class="BeautyBox">
+        <div class="box-primary">
             <h3 class="text-center">Description</h3>
             <textarea style="height:10rem;" class="form-control" @bind="@Building.Description"></textarea>
 
         </div>
-        <div class="BeautyBox">
+        <div class="box-primary">
             <h3 class="text-center">Observations</h3>
             <textarea style="height:10rem;" class="form-control" @bind="@Building.Observation"></textarea>
 
         </div>
     </EditForm>
-    <div style="margin:3rem 0rem;" />
-    <div style="position:sticky;bottom:0;padding:0.5rem; background-color:#b267ccef; ">
+    <div style="margin:1.0rem 0rem;" />
+    <div class="back-accent" style="position:sticky;bottom:0;padding:0.5rem;border-radius:5px;">
         <div class="d-flex justify-content-end">
-            <button class="btn btn-success mr-3" @onclick=Print>
+            <button class="btn btn-secondary mr-3" @onclick=Print>
                 <span class="oi oi-print"></span>
             </button>
             <button class="btn btn-primary" @onclick=Save>
