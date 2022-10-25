@@ -30,7 +30,7 @@ namespace ExpertCities.Data
     }
     public enum BuildStructEnum
     {
-        Wood = 1, Metal = 2, Concrete = 4, Mixte_Wood_Concrete = 5, Mixte_Wood_Metal = 6, Other = 8
+        Wood = 1, Metal = 2, Concrete = 4, Wood_Concrete_Mix = 5, Wood_Metal_Mix = 6, Other = 8
     }
     public enum BuildShapeEnum
     {

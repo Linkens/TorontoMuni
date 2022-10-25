@@ -171,16 +171,16 @@
   <data name="BuildStructEnum_Metal" xml:space="preserve">
     <value>Métal</value>
   </data>
-  <data name="BuildStructEnum_Mixte_Wood_Concrete" xml:space="preserve">
-    <value>Bois &amp; Béton</value>
-  </data>
-  <data name="BuildStructEnum_Mixte_Wood_Metal" xml:space="preserve">
-    <value>Bois &amp; Métal</value>
-  </data>
   <data name="BuildStructEnum_Other" xml:space="preserve">
     <value>Autre</value>
   </data>
   <data name="BuildStructEnum_Wood" xml:space="preserve">
     <value>Bois</value>
+  </data>
+  <data name="BuildStructEnum_Wood_Concrete_Mix" xml:space="preserve">
+    <value>Bois &amp; Béton</value>
+  </data>
+  <data name="BuildStructEnum_Wood_Metal_Mix" xml:space="preserve">
+    <value>Bois &amp; Métal</value>
   </data>
 </root>
