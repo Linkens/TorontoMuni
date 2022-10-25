@@ -64,6 +64,13 @@ void BuildContext()
         }
         var b = new Building { Category = BuildCatEnum.School, Denomination = "Ecole", Structure = BuildStructEnum.Concrete };
         b.Country = "Canada"; b.City = "Toronto"; b.CivicNumber = "15665421-4"; b.Telephone = "+4523884716"; b.Val_Acquire = 1500000; b.Length = 45; b.Width = 50; b.Shape = BuildShapeEnum.Square; b.Date_Acquire = new DateTime(1970, 10, 5); b.Date_Commission = new DateTime(1970, 10, 5);
+        var w = new Work { State = WorkStateEnum.WorkOrder | WorkStateEnum.Completed, Building = b, WorkOrderDate = new DateTime(2022, 8, 12), IsInternal = true, Summary = "Autumn maintenance" };
+        w.Actions = new List<WorkAction>();
+        w.Actions.Add(new WorkAction { Date = new DateTime(2022, 8, 24), Worker = "Bob", Description = "Fixing the ceiling lamp" });
+        w.Actions.Add(new WorkAction { Date = new DateTime(2022, 8, 26), Worker = "John", Description = "Unclogged the sink" });
+        w.Actions.Add(new WorkAction { Date = new DateTime(2022, 8, 26), Worker = "John", Description = "Sprayed W40" });
+        w.Actions.Add(new WorkAction { Date = new DateTime(2022, 8, 27), Worker = "Alex", Description = "Replaced hinges" });
+        c.Works.Add(w);
         c.Buildings.Add(b);
         c.Buildings.Add(new Building { Category = BuildCatEnum.Residential, Denomination = "Résidence", Structure = BuildStructEnum.Concrete });
         c.SaveChanges();

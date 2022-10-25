@@ -17,7 +17,7 @@
     [Parameter] public List<EntityLocalizer<ChoiceList>> List { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        DataServices.SetBusy(GlobalLoc["Loading"]);
+        DataServices.SetBusy(GlobalLoc["Loading ..."]);
         if (int.TryParse(ID, out int Value))
         {
             Building = await Context.Buildings.Include(b=>b.Images).FirstOrDefaultAsync(b => b.ID == Value);

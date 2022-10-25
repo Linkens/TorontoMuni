@@ -4,7 +4,7 @@
 <MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
     <h1 class="text-center">@Loc["Welcome to asset management home page"]</h1>
     <div class="d-flex flex-column" style="width:98%;">
-        <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/Buildings">
+        <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/Assets/Buildings">
             <span class="oi oi-map" style="margin-right:1rem; color:orangered"></span>
             @Loc["Buildings"]
         </a>
@@ -20,7 +20,7 @@
             <span class="oi oi-paperclip" style="margin-right:1rem; color:blue;text-align:left"></span>
             @Loc["Equipement"]
         </a>
-        <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/Works">
+        <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/Assets/WorkList">
             <span class="oi oi-wrench" style="margin-right:1rem; color:green;text-align:left"></span>
             @Loc["Works"]
         </a>
@@ -29,7 +29,7 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        DataServices.SetBusy(GlobalLoc["Loading"]);
+        DataServices.SetBusy(GlobalLoc["Loading ..."]);
         await base.OnInitializedAsync();
         DataServices.EndBusy();
     }

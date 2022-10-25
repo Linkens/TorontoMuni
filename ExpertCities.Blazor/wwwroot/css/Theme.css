@@ -15,6 +15,10 @@
     --SecondaryColorDisabledAccent: #6E66AB;
     --SecondaryColorDisabled: #A19AD0;
 }
+table tr:nth-child(odd) td {
+    background-color: #B294CD;
+    color: #fff;
+}
 /*Background*/
 .box-primary {
     box-shadow: 1px 1px 5px var(--MainColor);
@@ -27,6 +31,7 @@
 }
 .back-secondary {
     background-color: var(--SecondaryColor);
+    
 }
 .back-accent {
     background-color: var(--AccentColor);

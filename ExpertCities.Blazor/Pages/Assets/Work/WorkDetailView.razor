@@ -1,0 +1,119 @@
+﻿@page "/Assets/Work/{ID}"
+@inject IStringLocalizer<WorkListView> Loc
+<MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
+    @if (Work == null)
+    {
+        <h2 class="text-center">@Loc["No work with this ID"]</h2>
+    }
+    else
+    {
+        <EditForm Model="this">
+
+            <h2 class="text-center">@Loc["Work"]</h2>
+            <div class="box-primary">
+                <h3 class="text-center">@Loc["Status"]</h3>
+                <label>@Loc["Summary"]</label>
+                <textarea class="form-control" @bind=Work.Summary style="min-height:5rem;"></textarea>
+                <label>@Loc["Work order"]</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text oi oi-clipboard" style="color:@GetColor(Work.State.HasFlag(WorkStateEnum.WorkOrder))"</span>
+                    </div>
+                    <InputDate class="form-control" @bind-Value="WorkOrder" />
+                </div>
+                <label>@Loc["Work completed"]</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text oi oi-task" style="color:@GetColor(Work.State.HasFlag(WorkStateEnum.Completed))"</span>
+                    </div>
+                    <InputDate class="form-control" @bind-Value="WorkCompleted" />
+                </div>
+                <label>@Loc["Inspection"]</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text oi oi-magnifying-glass" style="color:@GetColor(Work.State.HasFlag(WorkStateEnum.Verify))"</span>
+                    </div>
+                    <InputDate class="form-control" @bind-Value="WorkVerified" />
+                </div>
+
+            </div>
+            <div class="box-primary">
+                <h3 class="text-center">@Loc["Actions"]</h3>
+
+                <table style="width:100%">
+                    <tr>
+                        <th>@Loc["Date"]</th>
+                        <th>@Loc["Worker"]</th>
+                        <th>@Loc["Description"]</th>
+                        <th>@Loc["Detail"]</th>
+                    </tr>
+                    @foreach (var item in Work.Actions)
+                    {
+                        <tr>
+                            <td>@item.Date.ToString("yyyy/MM/dd")</td>
+                            <td>@item.Worker</td>
+                            <td>@item.Description</td>
+                            <td><button class="Ghost" @onclick="()=>Display(item)"><span class="oi oi-cog"></span></button></td>
+                        </tr>
+                    }
+                </table>
+                <div class="justify-content-end d-flex">
+                    <button class="btn btn-secondary mt-2" @onclick="AddAction"><span class="oi oi-plus"></span></button>
+                </div>
+            </div>
+        </EditForm>
+        <div class="d-flex justify-content-center mt-2">
+            <button class="btn btn-primary" @onclick=Save><span class="oi oi-task mr-2"></span>@GlobalLoc["Save"]</button>
+        </div>
+    }
+</MainLoading>
+@code {
+    [Parameter] public string ID { get; set; }
+    public DateTime? WorkOrder { get => Work.WorkOrderDate; set { Work.WorkOrderDate = value; DealDate(value, WorkStateEnum.WorkOrder); } }
+    public DateTime? WorkCompleted { get => Work.WorkCompleted; set { Work.WorkCompleted = value; DealDate(value, WorkStateEnum.Completed); } }
+    public DateTime? WorkVerified { get => Work.Verified; set { Work.Verified = value; DealDate(value, WorkStateEnum.Verify); } }
+    protected Work Work { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        DataServices.SetBusy(GlobalLoc["Loading ..."]);
+        if (int.TryParse(ID, out int WorkInt))
+        {
+            Work = await Context.Works.Include(w => w.Building).Include(w => w.Actions).FirstOrDefaultAsync(w => w.ID == WorkInt);
+        }
+        await base.OnInitializedAsync();
+        DataServices.EndBusy();
+    }
+    protected string GetColor(bool Value)
+    {
+        return Value ? "#006D05" : "#D1D1D1AA";
+    }
+    protected void DealDate(DateTime? Value, WorkStateEnum State)
+    {
+        if (Value.HasValue)
+            Work.State |= State;
+        else
+            Work.State &= ~State;
+    }
+    protected async Task AddAction()
+    {
+        Work.Actions.Add(new WorkAction());
+    }
+    protected async Task Display(WorkAction Action)
+    {
+        ;
+    }
+    protected async Task Save()
+    {
+        try
+        {
+            DataServices.SetBusy(GlobalLoc["Saving ..."]);
+            await Context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Notify.Notify(NotificationSeverity.Error, ex.Message, duration: 10000);
+        }
+        DataServices.EndBusy();
+
+    }
+}

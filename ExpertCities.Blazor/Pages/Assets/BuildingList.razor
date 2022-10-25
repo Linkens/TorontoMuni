@@ -1,4 +1,4 @@
-﻿@page "/Buildings"
+﻿@page "/Assets/Buildings"
 
 @inject IStringLocalizer<BuildingList> Localizer
 <PageTitle>@Localizer["Building list"]</PageTitle>
@@ -36,7 +36,7 @@
     protected List<Building> Buildings;
     protected override async Task OnInitializedAsync()
     {
-        DataServices.SetBusy(GlobalLoc["Loading"]);
+        DataServices.SetBusy(GlobalLoc["Loading ..."]);
         Buildings = await Context.Buildings.ToListAsync();
         Denominations = await Context.Choices.Where(c => c.Filter == ChoiceListEnum.Denomination).ToListAsync();
         await Task.Delay(500);
@@ -51,14 +51,15 @@
     }
     protected async Task AddBat()
     {
-        var Bat = new Building { Denomination = "Nouvelle" };
-        var Return = await Dialog.OpenAsync<BuildingDetail>(GlobalLoc["Building general data"], new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
+        var Bat = new Building { Denomination = Localizer["New"] };
+        var Return = await Dialog.OpenAsync<BuildingDetail>(GlobalLoc["Building general data"], 
+        new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations.Select(d => new EntityLocalizer<ChoiceList>(d)).ToList() }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
 
         if (Return != null && (bool)Return)
         {
             Context.Add(Bat);
             Buildings.Add(Bat);
-            DataServices.SetBusy(GlobalLoc["Loading"]);
+            DataServices.SetBusy(GlobalLoc["Loading ..."]);
             StateHasChanged();
             await Task.Delay(500);
             await Context.SaveChangesAsync();

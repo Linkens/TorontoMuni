@@ -1,0 +1,20 @@
+﻿<div class="d-flex" style="width:100%;">
+    <span style="flex: 0 1 33.333%;color:@GetColor(State.HasFlag(WorkStateEnum.WorkOrder))"
+          data-toggle="tooltip" data-placement="top" title="@Work.WorkOrderDate?.ToString("yyyy/MM/dd")"
+          class="oi oi-clipboard"></span>
+    <span style="flex: 0 1 33.333%;color:@GetColor(State.HasFlag(WorkStateEnum.Completed))"
+          data-toggle="tooltip" data-placement="top" title="@Work.WorkCompleted?.ToString("yyyy/MM/dd")"
+          class="oi oi-task"></span>
+    <span style="flex: 0 1 33.333%;color:@GetColor(State.HasFlag(WorkStateEnum.Verify))"
+          data-toggle="tooltip" data-placement="top" title="@Work.Verified?.ToString("yyyy/MM/dd")"
+          class="oi oi-magnifying-glass"></span>
+</div>
+
+@code {
+    public WorkStateEnum State => Work.State;
+    [Parameter] public Work Work { get; set; }
+    protected string GetColor(bool Value)
+    {
+        return Value ? "#006D05" : "#D1D1D1AA";
+    }
+}

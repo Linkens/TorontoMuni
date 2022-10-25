@@ -117,16 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Building" xml:space="preserve">
-    <value>Bâtiment</value>
-  </data>
   <data name="Detail" xml:space="preserve">
     <value>Détail</value>
   </data>
-  <data name="Structure" xml:space="preserve">
-    <value>Structure</value>
+  <data name="Internal" xml:space="preserve">
+    <value>Interne</value>
   </data>
-  <data name="Type" xml:space="preserve">
-    <value>Type</value>
+  <data name="No work with this ID" xml:space="preserve">
+    <value>Pas de travaux avec cette valeur</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Statut</value>
+  </data>
+  <data name="Work" xml:space="preserve">
+    <value>Travaux</value>
+  </data>
+  <data name="Work completed" xml:space="preserve">
+    <value>Travail terminé</value>
+  </data>
+  <data name="Work order" xml:space="preserve">
+    <value>Bon de travail</value>
   </data>
 </root>

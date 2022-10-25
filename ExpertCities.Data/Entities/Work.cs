@@ -17,7 +17,7 @@ namespace ExpertCities.Data
         public Building? Building { get; set; }
         public bool IsInternal { get; set; }
         public WorkStateEnum State { get; set; }
-
+        public string Summary { get; set; }
         public DateTime? WorkOrderDate { get; set; }
         public DateTime? WorkCompleted { get; set; }
         public DateTime? Verified { get; set; }
