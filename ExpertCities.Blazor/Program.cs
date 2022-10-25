@@ -17,6 +17,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<DataServices>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<DialogService>();
+builder.Services.AddSingleton<IRetrieveFile, MemoryFileManager>();
 builder.Services.AddLocalization();
 builder.Services.AddDbContext<ECContext>(ServiceLifetime.Transient);
 

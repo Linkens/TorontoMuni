@@ -1,0 +1,14 @@
+﻿<EditForm Model="this">
+    <label>@Loc["Date"]</label>
+    <InputDate class="form-control" @bind-Value=Action.Date></InputDate>
+    <label>@Loc["Worker"]</label>
+    <input class="form-control" @bind-value=Action.Worker />
+    <label>@Loc["Description"]</label>
+    <textarea class="form-control" @bind=Action.Description />
+</EditForm>
+
+@code {
+    [Parameter] public WorkAction Action { get; set; }
+    [Parameter] public ECContext c { get; set; }
+    [Parameter] public IStringLocalizer Loc { get; set; }
+}

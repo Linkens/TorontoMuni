@@ -100,7 +100,9 @@
     }
     protected async Task Display(WorkAction Action)
     {
-        ;
+        var Return = Dialog.OpenAsync<WorkActionView>(Loc["Action"],
+        new Dictionary<string, object> { { "Action", Action }, { "c", Context }, { "Loc", Loc } },
+         options: new DialogOptions{ AutoFocusFirstElement =true, CloseDialogOnEsc = true, CloseDialogOnOverlayClick =true, Resizable = true});
     }
     protected async Task Save()
     {

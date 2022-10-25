@@ -117,95 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Acquirement Value" xml:space="preserve">
-    <value>Valeur d'acquisition</value>
+  <data name="BuildCatEnum_Administrative" xml:space="preserve">
+    <value>Administratif</value>
   </data>
-  <data name="Acquisition Date" xml:space="preserve">
-    <value>Date d'acquisition</value>
+  <data name="BuildCatEnum_Agricultural" xml:space="preserve">
+    <value>Agricole</value>
   </data>
-  <data name="Actual Value" xml:space="preserve">
-    <value>Valeur actuelle</value>
+  <data name="BuildCatEnum_Industrial" xml:space="preserve">
+    <value>Industriel</value>
   </data>
-  <data name="Building general data" xml:space="preserve">
-    <value>Informations générale du bâtiment</value>
+  <data name="BuildCatEnum_Recreational" xml:space="preserve">
+    <value>Récréatif</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BuildingDetail.fr-CA" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>buildingdetail.fr-ca.resx;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="BuildCatEnum_Residential" xml:space="preserve">
+    <value>Résidentiel</value>
   </data>
-  <data name="Category" xml:space="preserve">
-    <value>Catégorie</value>
+  <data name="BuildCatEnum_School" xml:space="preserve">
+    <value>École</value>
   </data>
-  <data name="City" xml:space="preserve">
-    <value>Ville</value>
+  <data name="BuildFileTypeEnum_DataSheetsrawin" xml:space="preserve">
+    <value>Fiches techniques</value>
   </data>
-  <data name="Civic number" xml:space="preserve">
-    <value>Numéro civique</value>
+  <data name="BuildFileTypeEnum_Drawing" xml:space="preserve">
+    <value>Plan</value>
   </data>
-  <data name="Commission Date" xml:space="preserve">
-    <value>Date de mise en service</value>
+  <data name="BuildFileTypeEnum_Other" xml:space="preserve">
+    <value>Autre</value>
   </data>
-  <data name="Country" xml:space="preserve">
-    <value>Pays</value>
+  <data name="BuildFileTypeEnum_Quotation" xml:space="preserve">
+    <value>Devis</value>
   </data>
-  <data name="Dates" xml:space="preserve">
-    <value>Dates</value>
+  <data name="BuildFileTypeEnum_WorkShopDrawing" xml:space="preserve">
+    <value>Dessin d'atelier</value>
   </data>
-  <data name="Depth" xml:space="preserve">
-    <value>Profondeur</value>
+  <data name="BuildShapeEnum_Irregular" xml:space="preserve">
+    <value>Irrégulié</value>
   </data>
-  <data name="File type {0} unsupported" xml:space="preserve">
-    <value>Type de fichier {0} non supporté !</value>
+  <data name="BuildShapeEnum_Rectangular" xml:space="preserve">
+    <value>Réctangulaire</value>
   </data>
-  <data name="Filename" xml:space="preserve">
-    <value>Nom</value>
+  <data name="BuildShapeEnum_Square" xml:space="preserve">
+    <value>Carré</value>
   </data>
-  <data name="Files" xml:space="preserve">
-    <value>Fichiers</value>
+  <data name="BuildShapeEnum_Trapezoidal" xml:space="preserve">
+    <value>Trapèze</value>
   </data>
-  <data name="Garantee Date" xml:space="preserve">
-    <value>Date de garantie</value>
+  <data name="BuildShapeEnum_Triangular" xml:space="preserve">
+    <value>Triangulaire</value>
   </data>
-  <data name="Land line, mobile phone" xml:space="preserve">
-    <value>Téléphone, fixe, mobile</value>
+  <data name="BuildStructEnum_Concrete" xml:space="preserve">
+    <value>Béton</value>
   </data>
-  <data name="Length" xml:space="preserve">
-    <value>Longueur</value>
+  <data name="BuildStructEnum_Metal" xml:space="preserve">
+    <value>Métal</value>
   </data>
-  <data name="Location" xml:space="preserve">
-    <value>Localisation</value>
+  <data name="BuildStructEnum_Mixte_Wood_Concrete" xml:space="preserve">
+    <value>Bois &amp; Béton</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Dénomination</value>
+  <data name="BuildStructEnum_Mixte_Wood_Metal" xml:space="preserve">
+    <value>Bois &amp; Métal</value>
   </data>
-  <data name="Other Date" xml:space="preserve">
-    <value>Autre date</value>
+  <data name="BuildStructEnum_Other" xml:space="preserve">
+    <value>Autre</value>
   </data>
-  <data name="Remplacement Value" xml:space="preserve">
-    <value>Valeur de remplacement</value>
-  </data>
-  <data name="Shape" xml:space="preserve">
-    <value>Forme</value>
-  </data>
-  <data name="State" xml:space="preserve">
-    <value>État actuel</value>
-  </data>
-  <data name="Street name, road ..." xml:space="preserve">
-    <value>Nom de la rue, boulevard...</value>
-  </data>
-  <data name="Structure" xml:space="preserve">
-    <value>Structure</value>
-  </data>
-  <data name="Values" xml:space="preserve">
-    <value>Valeurs</value>
-  </data>
-  <data name="Width" xml:space="preserve">
-    <value>Largeur</value>
-  </data>
-  <data name="Works Value" xml:space="preserve">
-    <value>Valeur des travaux</value>
-  </data>
-  <data name="Zip code" xml:space="preserve">
-    <value>Code postal</value>
+  <data name="BuildStructEnum_Wood" xml:space="preserve">
+    <value>Bois</value>
   </data>
 </root>

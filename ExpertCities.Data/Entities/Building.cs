@@ -39,6 +39,7 @@ namespace ExpertCities.Data
         public string? Description { get; set; }
         public string? Observation { get; set; }
         public List<BuildingImage> Images { get; set; }
+        public List<BuildingFile> Files { get; set; }
     }
     public class BuildingImage
     {

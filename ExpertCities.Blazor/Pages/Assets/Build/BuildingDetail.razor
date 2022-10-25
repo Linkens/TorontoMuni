@@ -16,9 +16,9 @@
             <div class="d-flex flex-column">
                 <label>@Loc["Category"]</label>
                 <InputSelect @bind-Value=Cate class="form-control">
-                    @foreach (var item in typeof(BuildCatEnum).GetEnumValues())
+                    @foreach (BuildCatEnum item in typeof(BuildCatEnum).GetEnumValues())
                     {
-                        <option value="@item">@item</option>
+                        <option value="@item">@item.GetLocalizeName()</option>
                     }
                 </InputSelect>
                 <label>@Loc["Name"]</label>
@@ -32,9 +32,9 @@
                 </datalist>
                 <label>@Loc["Structure"]</label>
                 <InputSelect @bind-Value=Building.Structure class="form-control">
-                    @foreach (var item in typeof(BuildStructEnum).GetEnumValues())
+                    @foreach (BuildStructEnum item in typeof(BuildStructEnum).GetEnumValues())
                     {
-                        <option value="@item">@item</option>
+                        <option value="@item">@item.GetLocalizeName()</option>
                     }
                 </InputSelect>
                 <div class="DropArea" style="margin:20px">
@@ -132,9 +132,9 @@
                     <label>@Loc["Shape"]</label>
 
                     <InputSelect class="form-control" @bind-Value=@Building.Shape>
-                        @foreach (var item in typeof(BuildShapeEnum).GetEnumValues())
+                        @foreach (BuildShapeEnum item in typeof(BuildShapeEnum).GetEnumValues())
                         {
-                            <option value="@item">@item</option>
+                            <option value="@item">@item.GetLocalizeName()</option>
                         }
                     </InputSelect>
                     <label>@Loc["Volume"]</label>
@@ -183,6 +183,28 @@
             <textarea style="height:10rem;" class="form-control" @bind="@Building.Observation"></textarea>
 
         </div>
+        <div class="box-primary">
+            <h3 class="text-center">@Loc["Files"]</h3>
+            <table style="width:100%;">
+                <tr>
+                    <th>@Loc["Filename"]</th>
+                    <th>@Loc["Type"]</th>
+                </tr>
+                @foreach (var f in Building.Files)
+                {
+                    <tr>
+                        <td>@f.File.FileName</td>
+                        <td>@f.Type.GetLocalizeName()</td>
+                        <td><button class="Ghost" @onclick="()=>DownloadFile(f)"><span class="oi oi-cloud-download"></span></button></td>
+                    </tr>
+                }
+            </table>
+            <div class="d-flex justify-content-end mt-2">
+                <button class="btn btn-secondary" @onclick="UploadFile">
+                    <span class="oi oi-cloud-upload"></span>
+                </button>
+            </div>
+        </div>
     </EditForm>
     <div style="margin:1.0rem 0rem;" />
     <div class="back-accent" style="position:sticky;bottom:0;padding:0.5rem;border-radius:5px;">
@@ -212,6 +234,23 @@
     {
         await c.SaveChangesAsync();
         Dialog.Close(true);
+    }
+    protected async Task UploadFile()
+    {
+        var NewFile = new BuildingFile { Type = BuildFileTypeEnum.Other };
+        var File = await Dialog.OpenAsync<UploadFileView>("", new Dictionary<string, object> { { "BuildingFile", NewFile } });
+        if (File != null)
+        {
+            var Hosted = (HostedFile)File;
+            NewFile.File = Hosted;
+            Building.Files.Add(NewFile);
+        }
+        await c.SaveChangesAsync();
+    }
+    protected async Task DownloadFile(BuildingFile File)
+    {
+        var Bytes = await FileManager.GetFile(File.File);
+        await JS.SaveAny(Convert.ToBase64String(Bytes), File.File.ContentType, File.File.FileName);
     }
     protected async Task Print()
     {

@@ -13,9 +13,9 @@
         @foreach (var item in Buildings)
         {
             <tr>
-                <td>@item.Category</td>
-                <td>@item.Structure</td>
                 <td>@item.Denomination</td>
+                <td>@item.Category.GetLocalizeName()</td>
+                <td>@item.Structure.GetLocalizeName()</td>
                 <td>
                     <button class="Ghost" @onclick="()=>Detail(item)">
                         <span class="oi oi-cog"></span>
@@ -46,12 +46,14 @@
     protected async Task Detail(Building Bat)
     {
         await Context.Entry(Bat).Collection(b => b.Images).LoadAsync();
+        await Context.Entry(Bat).Collection(b => b.Files).Query().Include(f=>f.File).LoadAsync();
         await Dialog.OpenAsync<BuildingDetail>(GlobalLoc["Building general data"],
         new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations.Select(d => new EntityLocalizer<ChoiceList>(d)).ToList() }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
     }
     protected async Task AddBat()
     {
         var Bat = new Building { Denomination = Localizer["New"] };
+        Bat.Files = new List<BuildingFile>();
         var Return = await Dialog.OpenAsync<BuildingDetail>(GlobalLoc["Building general data"], 
         new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations.Select(d => new EntityLocalizer<ChoiceList>(d)).ToList() }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
 

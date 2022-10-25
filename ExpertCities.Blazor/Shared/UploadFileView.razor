@@ -1,0 +1,54 @@
+﻿<MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
+    @if (BuildingFile != null)
+    {
+
+        <EditForm Model="this">
+            <label>Type</label>
+            <InputSelect class="form-control" @bind-Value="BuildingFile.Type">
+                @foreach (BuildFileTypeEnum item in typeof(BuildFileTypeEnum).GetEnumValues())
+                {
+                    <option value="@item">@item.GetLocalizeName()</option>
+                }
+            </InputSelect>
+        </EditForm>
+    }
+    <div class="DropArea" style="margin:20px">
+        @*  @DropString*@
+        <InputFile id="inputDrop" OnChange="OnInputFileChange" /> @*@ondragenter="HandleDragEnter" @ondragleave="HandleDragLeave"*@
+    </div>
+</MainLoading>
+@code {
+    [Parameter] public BuildingFile? BuildingFile { get; set; }
+    async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        DataServices.SetBusy(GlobalLoc["Loading"]);
+        try
+        {
+            byte[] Bytes;
+            using (var stream = e.File.OpenReadStream(maxAllowedSize: 1024 * 1024 * 10))
+            using (var m = new MemoryStream())
+            {
+                await stream.CopyToAsync(m);
+                Bytes = m.ToArray();
+            }
+            var Id = await FileManager.SaveFile(Bytes);
+            if (!string.IsNullOrEmpty(Id))
+            {
+                Dialog.Close(new HostedFile { FileName = e.File.Name, ContentType = e.File.ContentType, ProviderID = Id });
+            }
+        }
+        catch (Exception ex)
+        {
+            if (ex.Message.Contains("exceeds the maximum"))
+            {
+                Notify.Notify(NotificationSeverity.Error, $"Fichier trop gros 4Mo maximum !");
+            }
+            else
+            {
+                Notify.Notify(NotificationSeverity.Error, $"Erreur inconnue ! " + ex.Message);
+            }
+        }
+        DataServices.EndBusy();
+        // IsBusy = false;
+    }
+}
