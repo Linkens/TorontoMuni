@@ -17,21 +17,21 @@
                 <label>@Loc["Work order"]</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text oi oi-clipboard" style="color:@GetColor(Work.State.HasFlag(WorkStateEnum.WorkOrder))"</span>
+                        <span class="input-group-text oi oi-clipboard" style="color:@GetColor(Work.State.HasFlag(WorkStateEnum.WorkOrder))"></span>
                     </div>
                     <InputDate class="form-control" @bind-Value="WorkOrder" />
                 </div>
                 <label>@Loc["Work completed"]</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text oi oi-task" style="color:@GetColor(Work.State.HasFlag(WorkStateEnum.Completed))"</span>
+                        <span class="input-group-text oi oi-task" style="color:@GetColor(Work.State.HasFlag(WorkStateEnum.Completed))"></span>
                     </div>
                     <InputDate class="form-control" @bind-Value="WorkCompleted" />
                 </div>
                 <label>@Loc["Inspection"]</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text oi oi-magnifying-glass" style="color:@GetColor(Work.State.HasFlag(WorkStateEnum.Verify))"</span>
+                        <span class="input-group-text oi oi-magnifying-glass" style="color:@GetColor(Work.State.HasFlag(WorkStateEnum.Verify))"></span>
                     </div>
                     <InputDate class="form-control" @bind-Value="WorkVerified" />
                 </div>
