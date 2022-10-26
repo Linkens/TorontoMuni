@@ -119,33 +119,62 @@
             <div class="row no-gutters">
                 <div class="col-lg-6">
                     <label>@Loc["Length"]</label>
-                    <input class="form-control" @bind-value=@Building.Length />
+                    <div class="input-group">
+                        <input class="form-control" @bind-value=@Building.Length />
+                        <div class="input-group-append">
+                            <span class="input-group-text">m</span>
+                        </div>
+                    </div>
                     <label>@Loc["Width"]</label>
-                    <input class="form-control" @bind-value=@Building.Width />
+                    <div class="input-group">
+                        <input class="form-control" @bind-value=@Building.Width />
+                        <div class="input-group-append">
+                            <span class="input-group-text">m</span>
+                        </div>
+                    </div>
                     <label>@Loc["Surface"]</label>
-                    <input class="form-control" @bind-value=@Building.Surface />
+                    <div class="input-group">
+                        <input class="form-control" @bind-value=@Building.Surface />
+                        <div class="input-group-append">
+                            <span class="input-group-text">m²</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-6">
                     <label>@Loc["Depth"]</label>
-                    <input class="form-control" @bind-value=@Building.Depth />
+                    <div class="input-group">
+                        <input class="form-control" @bind-value=@Building.Depth />
+                        <div class="input-group-append">
+                            <span class="input-group-text">m</span>
+                        </div>
+                    </div>
 
                     <label>@Loc["Shape"]</label>
-
-                    <InputSelect class="form-control" @bind-Value=@Building.Shape>
-                        @foreach (BuildShapeEnum item in typeof(BuildShapeEnum).GetEnumValues())
-                        {
-                            <option value="@item">@item.GetLocalizeName()</option>
-                        }
-                    </InputSelect>
+                    <div class="input-group">
+                        <InputSelect class="form-control" @bind-Value=@Building.Shape>
+                            @foreach (BuildShapeEnum item in typeof(BuildShapeEnum).GetEnumValues())
+                            {
+                                <option value="@item">@item.GetLocalizeName()</option>
+                            }
+                        </InputSelect>
+                        <div class="input-group-append">
+                            <span class="input-group-text"><span class="oi oi-puzzle-piece" style="padding:0.1rem 0.0rem 0.4rem 0rem;"></span></span>
+                        </div>
+                    </div>
                     <label>@Loc["Volume"]</label>
-                    <input class="form-control" @bind-value=@Building.Volume />
+                    <div class="input-group">
+                        <input class="form-control" @bind-value=@Building.Volume />
+                        <div class="input-group-append">
+                            <span class="input-group-text">m3</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-
-
-
         </div>
+
+
+
+
         <div class="box-primary">
             <h3 class="text-center">@Loc["Location"]</h3>
             <div class="row">

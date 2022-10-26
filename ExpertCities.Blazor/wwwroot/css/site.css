@@ -24,9 +24,8 @@ a, .btn-link {
 .input-group .input-group-text {
     height: 100%;
 }
-.input-group-text.oi
-{
-    top:unset;
+.input-group-text.oi {
+    top: unset;
 }
 
 .content {

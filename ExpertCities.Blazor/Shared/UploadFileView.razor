@@ -16,26 +16,54 @@
         @*  @DropString*@
         <InputFile id="inputDrop" OnChange="OnInputFileChange" /> @*@ondragenter="HandleDragEnter" @ondragleave="HandleDragLeave"*@
     </div>
+    @if (File != null)
+    {
+        <div class="box-primary">
+            <h3 class="text-center">@File.FileName</h3>
+            <h4 class="text-center">@File.MemeType</h4>
+            <div class="d-flex justify-content-center mt-2">
+                <button class="btn btn-primary" @onclick=Validate>
+                    <span class="oi oi-cloud-upload"></span>
+                </button>
+            </div>
+        </div>
+    }
 </MainLoading>
 @code {
+    protected class TempFile
+    {
+        public string MemeType;
+        public string FileName;
+        public byte[] Content;
+    }
+    protected TempFile File;
     [Parameter] public BuildingFile? BuildingFile { get; set; }
+    protected async Task Validate()
+    {
+        var Id = await FileManager.SaveFile(File.Content);
+        if (!string.IsNullOrEmpty(Id))
+        {
+
+            Dialog.Close(new HostedFile { FileName = File.FileName, ContentType = File.MemeType, ProviderID = Id });
+        }
+    }
     async Task OnInputFileChange(InputFileChangeEventArgs e)
     {
         DataServices.SetBusy(GlobalLoc["Loading"]);
         try
         {
             byte[] Bytes;
+            File = new TempFile();
             using (var stream = e.File.OpenReadStream(maxAllowedSize: 1024 * 1024 * 10))
             using (var m = new MemoryStream())
             {
                 await stream.CopyToAsync(m);
-                Bytes = m.ToArray();
+                File.Content = m.ToArray();
+                File.MemeType = e.File.ContentType;
+                File.FileName = e.File.Name;
             }
-            var Id = await FileManager.SaveFile(Bytes);
-            if (!string.IsNullOrEmpty(Id))
-            {
-                Dialog.Close(new HostedFile { FileName = e.File.Name, ContentType = e.File.ContentType, ProviderID = Id });
-            }
+
+
         }
         catch (Exception ex)
         {
