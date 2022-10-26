@@ -163,9 +163,6 @@
   <data name="Files" xml:space="preserve">
     <value>Fichiers</value>
   </data>
-  <data name="Garantee Date" xml:space="preserve">
-    <value>Date de garantie</value>
-  </data>
   <data name="Land line, mobile phone" xml:space="preserve">
     <value>Téléphone, fixe, mobile</value>
   </data>
@@ -198,6 +195,9 @@
   </data>
   <data name="Values" xml:space="preserve">
     <value>Valeurs</value>
+  </data>
+  <data name="Warranty Date" xml:space="preserve">
+    <value>Date de garantie</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Largeur</value>
