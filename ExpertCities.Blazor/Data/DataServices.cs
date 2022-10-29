@@ -16,10 +16,8 @@ namespace ExpertCities.Blazor
         public string LoadingText { get; set; }
         public bool IsLogged { get; set; }
 
-
         public DataServices()
         {
-
         }
         public void SetBusy(string Message = "Chargement des données ...")
         {

@@ -45,18 +45,18 @@
         </div>
         <div class="box-primary">
             <h3 class="text-center">@Loc["Dates"]</h3>
-            <div class="row no-gutters">
-                <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-4">
                     <label>@Loc["Acquisition Date"]</label>
                     <InputDate class="form-control" @bind-Value=@Building.Date_Acquire></InputDate>
+                </div>
+                <div class="col-lg-4">
                     <label>@Loc["Commission Date"]</label>
                     <InputDate class="form-control" @bind-Value=@Building.Date_Commission></InputDate>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <label>@Loc["Warranty Date"]</label>
                     <InputDate class="form-control" @bind-Value=@Building.Date_Garantee></InputDate>
-                    <label>@Loc["Other Date"]</label>
-                    <InputDate class="form-control" @bind-Value=@Building.Date_Other></InputDate>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                     </div>
                     <label>@Loc["Actual Value"]</label>
                     <div class="input-group">
-                        <input class="form-control" @bind-value=@Building.Val_Now />
+                        <div class="form-control">TODO Calculation</div>
                         <div class="input-group-append">
                             <span class="input-group-text">$</span>
                         </div>
@@ -115,7 +115,7 @@
 
         </div>
         <div class="box-primary">
-            <h3 class="text-center">Geometry</h3>
+            <h3 class="text-center">@Loc["Geometry"]</h3>
             <div class="row no-gutters">
                 <div class="col-lg-6">
                     <label>@Loc["Length"]</label>
@@ -176,7 +176,7 @@
 
 
         <div class="box-primary">
-            <h3 class="text-center">@Loc["Location"]</h3>
+            <h3 class="text-center">@Loc["Contact"]</h3>
             <div class="row">
                 <div class="col-lg-6">
                     <label>@Loc["Country"]</label>
@@ -195,7 +195,7 @@
                     <input class="form-control" @bind-value=@Building.Telephone />
                     <label>Email</label>
                     <input class="form-control" @bind-value=@Building.Email />
-                    <label>Position</label>
+                    <label>@Loc["Position"]</label>
                     <input class="form-control" @bind-value=@Building.Position />
                 </div>
             </div>
@@ -284,7 +284,8 @@
     protected async Task Print()
     {
         var Gen = new PDFGenerator();
-        var Mem = Gen.GetBuilding(Building, $"{Nav.BaseUri}Building/{Building.ID}", Loc);
+        var Migra = new DocumentGenerator();
+        var Mem = Migra.CreateBuildingSummary(Building, $"{Nav.BaseUri}Building/{Building.ID}", Loc);
         await JS.SaveAny(Convert.ToBase64String(Mem.ToArray()), "application/pdf", $"Building_{Building.ID}.pdf");
     }
     async Task OnInputFileChange(InputFileChangeEventArgs e)

@@ -11,10 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseWebRoot("wwwroot").UseStaticWebAssets();
 var SupportedCulture = new[] { "en-CA", "fr-CA" };
 
+var Ser = new SecretServices();
+Ser.Configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<DataServices>();
+builder.Services.AddSingleton(Ser);
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddSingleton<IRetrieveFile, MemoryFileManager>();

@@ -1,9 +1,10 @@
 ﻿@page "/Assets/Buildings"
-
+@inject SecretServices Secrets;
 @inject IStringLocalizer<BuildingList> Localizer
 <PageTitle>@Localizer["Building list"]</PageTitle>
 <MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
-    <table style="width:100%">
+    <div id='map' style='width: 100%; height:30rem;'></div>
+    <table class="mt-4" style="width:100%">
         <tr>
             <th>@Localizer["Building"]</th>
             <th>Type</th>
@@ -17,9 +18,9 @@
                 <td>@item.Category.GetLocalizeName()</td>
                 <td>@item.Structure.GetLocalizeName()</td>
                 <td>
-                    <button class="Ghost" @onclick="()=>Detail(item)">
+                    <a class="Ghost" href="/Assets/Building/@item.ID">
                         <span class="oi oi-cog"></span>
-                    </button>
+                    </a>
                 </td>
             </tr>
         }
@@ -42,11 +43,23 @@
         await Task.Delay(500);
         await base.OnInitializedAsync();
         DataServices.EndBusy();
+        StateHasChanged();
+        await JS.MapBox_SignIn(Secrets.Configuration["MapboxToken"], new float[] { -74.605f, 45.606f },13.5f);
+        await JS.InvokeVoidAsync("AddLocation", Nav.BaseUri);
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        //if (firstRender)
+        //{
+        //    await JS.MapBox_SignIn(Secrets.Configuration["MapboxToken"], new float[] { -74.605f, 45.606f });
+        //    await JS.InvokeVoidAsync("AddLocation", $"{Nav.BaseUri}Assets/Building/1");
+        //}
+        await base.OnAfterRenderAsync(firstRender);
     }
     protected async Task Detail(Building Bat)
     {
         await Context.Entry(Bat).Collection(b => b.Images).LoadAsync();
-        await Context.Entry(Bat).Collection(b => b.Files).Query().Include(f=>f.File).LoadAsync();
+        await Context.Entry(Bat).Collection(b => b.Files).Query().Include(f => f.File).LoadAsync();
         await Dialog.OpenAsync<BuildingDetail>(GlobalLoc["Building general data"],
         new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations.Select(d => new EntityLocalizer<ChoiceList>(d)).ToList() }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
     }
@@ -54,7 +67,7 @@
     {
         var Bat = new Building { Denomination = Localizer["New"] };
         Bat.Files = new List<BuildingFile>();
-        var Return = await Dialog.OpenAsync<BuildingDetail>(GlobalLoc["Building general data"], 
+        var Return = await Dialog.OpenAsync<BuildingDetail>(GlobalLoc["Building general data"],
         new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations.Select(d => new EntityLocalizer<ChoiceList>(d)).ToList() }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
 
         if (Return != null && (bool)Return)

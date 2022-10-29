@@ -145,6 +145,9 @@
   <data name="Commission Date" xml:space="preserve">
     <value>Date de mise en service</value>
   </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Pays</value>
   </data>
@@ -163,20 +166,29 @@
   <data name="Files" xml:space="preserve">
     <value>Fichiers</value>
   </data>
+  <data name="Geometry" xml:space="preserve">
+    <value>Dimensions</value>
+  </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>Inventaire</value>
+  </data>
   <data name="Land line, mobile phone" xml:space="preserve">
     <value>Téléphone, fixe, mobile</value>
   </data>
   <data name="Length" xml:space="preserve">
     <value>Longueur</value>
   </data>
-  <data name="Location" xml:space="preserve">
-    <value>Localisation</value>
+  <data name="Life Cycle" xml:space="preserve">
+    <value>Cycle de vie</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Dénomination</value>
   </data>
   <data name="Other Date" xml:space="preserve">
     <value>Autre date</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Role</value>
   </data>
   <data name="Remplacement Value" xml:space="preserve">
     <value>Valeur de remplacement</value>

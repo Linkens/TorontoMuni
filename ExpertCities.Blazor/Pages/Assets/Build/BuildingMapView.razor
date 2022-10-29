@@ -1,0 +1,28 @@
+﻿@page "/BuildingsMap"
+@inject SecretServices Secrets;
+<MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
+    <div class="d-flex justify-content-center">
+
+        <div id='map' style='width: 100%; height:30rem;'></div>
+    </div>
+</MainLoading>
+
+@code {
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        DataServices.SetBusy(GlobalLoc["Loading"]);
+        await base.OnInitializedAsync();
+        DataServices.EndBusy();
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.MapBox_SignIn(Secrets.Configuration["MapboxToken"], new float[] { -74.605f, 45.606f });
+            await JS.InvokeVoidAsync("AddLocation", $"{Nav.BaseUri}Assets/Building/1");
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+}

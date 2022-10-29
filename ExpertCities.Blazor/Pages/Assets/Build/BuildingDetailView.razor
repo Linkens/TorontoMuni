@@ -1,10 +1,46 @@
-﻿@page "/Building/{ID}"
+﻿@page "/Assets/Building/{ID}/{Mode}"
+@page "/Assets/Building/{ID}"
 @inject IStringLocalizer<BuildingDetailView> Loc
 <MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
+    <ul class="nav nav-pills">
+        @foreach (var tab in TabItems)
+        {
+            var c = "nav-link";
+            var aria = "";
+            var Ref = $"/Building/{ID}/{tab.Value}";
+            if (Mode == tab.Value)
+            {
+                c += " active";
+                aria = "page";
+            }
+            <li class="nav-item">
+                <a class="@c" aria-current="@aria" href="@Ref">@tab.Display</a>
+            </li>
+        }
+    </ul>
     @if (Building != null)
     {
-        <h1 class="text-center">@GlobalLoc["Building general data"]</h1>
-        <BuildingDetail Building="Building" c="Context" Denominations="List"></BuildingDetail>
+        @if(Mode == "Informations")
+        {
+
+            <h1 class="text-center">@GlobalLoc["Building general data"]</h1>
+            <BuildingDetail Building="Building" c="Context" Denominations="List"></BuildingDetail>
+        }
+        else if(Mode=="Inventory")
+        {
+            <h1 class="text-center">@Loc["Inventory"]</h1>
+
+        }
+        else if (Mode == "Works")
+        {
+            <h1 class="text-center">@Loc["Works"]</h1>
+
+        }
+        else if (Mode == "Inspections")
+        {
+            <h1 class="text-center">@Loc["Inspections"]</h1>
+
+        }
     }
     else
     {
@@ -12,21 +48,26 @@
     }
 </MainLoading>
 @code {
+    [Parameter] public string Mode { get; set; }
     [Parameter] public string ID { get; set; }
-    [Parameter] public Building Building { get; set; }
+    [Parameter] public Building? Building { get; set; }
     [Parameter] public List<EntityLocalizer<ChoiceList>> List { get; set; }
+    protected List<TabItem> TabItems;
+    protected record TabItem(string Display, string Value);
     protected override async Task OnInitializedAsync()
     {
         DataServices.SetBusy(GlobalLoc["Loading ..."]);
+        TabItems = new List<TabItem>() { new TabItem("Informations", "Informations"), new TabItem(Loc["Inventory"], "Inventory"), new TabItem(Loc["Inspections"], "Inspections"), new TabItem(Loc["Works"], "Works"), new TabItem(Loc["Life Cycle"], "LifeCycle"), };
         if (int.TryParse(ID, out int Value))
         {
-            Building = await Context.Buildings.Include(b=>b.Images).FirstOrDefaultAsync(b => b.ID == Value);
-            if(Building != null)
+            Building = await Context.Buildings.Include(b => b.Images).Include(b => b.Files).FirstOrDefaultAsync(b => b.ID == Value);
+            if (Building != null)
             {
                 var l = await Context.Choices.Where(c => c.Filter == ChoiceListEnum.Denomination).ToListAsync();
                 List = l.Select(v => new EntityLocalizer<ChoiceList>(v)).ToList();
             }
         }
+        if (Mode == null) Mode = "Informations";
         await base.OnInitializedAsync();
         DataServices.EndBusy();
     }

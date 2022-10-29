@@ -16,6 +16,7 @@ namespace ExpertCities.Data
         public DateTime? Date_Acquire { get; set; }
         public DateTime? Date_Commission { get; set; }
         public DateTime? Date_Garantee { get; set; }
+        [Obsolete("A supprimer")]
         public DateTime? Date_Other { get; set; }
         public int Val_Acquire { get; set; }
         public int Val_Now { get; set; }
