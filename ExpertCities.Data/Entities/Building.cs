@@ -23,7 +23,8 @@ namespace ExpertCities.Data
         public int Val_Work { get; set; }
         public int Val_Remplace { get; set; }
         public int State { get; set; }
-
+        public float Lat { get; set; }
+        public float Long { get; set; }
         public int Length { get; set; }
         public int Width { get; set; }
         public int Depth { get; set; }

@@ -26,7 +26,7 @@
         }
 
     </table>
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end mt-1">
         <button class="btn btn-primary" @onclick="AddBat">
             <span class=" oi oi-plus"></span>
         </button>
@@ -45,7 +45,7 @@
         DataServices.EndBusy();
         StateHasChanged();
         await JS.MapBox_SignIn(Secrets.Configuration["MapboxToken"], new float[] { -74.605f, 45.606f },13.5f);
-        await JS.InvokeVoidAsync("AddLocation", Nav.BaseUri);
+        await JS.AddLocation(Buildings, Nav.BaseUri);
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
