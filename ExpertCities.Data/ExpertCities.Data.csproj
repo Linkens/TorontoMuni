@@ -10,7 +10,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.10" />
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="6.0.10" />
     <PackageReference Include="MigraDocCore.Rendering" Version="1.3.41" />
-    <PackageReference Include="oxyplot.blazor" Version="2.1.0" />
     <PackageReference Include="OxyPlot.Core" Version="2.1.0" />
     <PackageReference Include="PdfSharpCore" Version="1.3.41" />
     <PackageReference Include="QRCoder" Version="1.4.3" />

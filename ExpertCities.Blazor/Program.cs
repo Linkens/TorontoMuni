@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.DependencyInjection;
 using ExpertCities.Data;
+using OxyPlot;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.UseWebRoot("wwwroot").UseStaticWebAssets();
@@ -23,7 +24,7 @@ builder.Services.AddScoped<DialogService>();
 builder.Services.AddSingleton<IRetrieveFile, MemoryFileManager>();
 builder.Services.AddLocalization();
 builder.Services.AddDbContext<ECContext>(ServiceLifetime.Transient);
-
+builder.Services.AddOxyPlotBlazor();
 BuildContext();
 
 var app = builder.Build();
@@ -67,14 +68,10 @@ void BuildContext()
             c.Choices.Add(new ChoiceList { Filter = ChoiceListEnum.Denomination, Key = Keys[i], Value = Values[i], ValueCA = CA[i] });
         }
         var b = new Building { Category = BuildCatEnum.School, Denomination = "Ecole", Structure = BuildStructEnum.Concrete };
-        b.Lat = -74.60503901404996f;b.Long = 45.60859520641057f;
+        b.Lat = -74.60503901404996f; b.Long = 45.60859520641057f;
         b.Country = "Canada"; b.City = "Toronto"; b.CivicNumber = "15665421-4"; b.Telephone = "+4523884716"; b.Val_Acquire = 1500000; b.Length = 45; b.Width = 50; b.Shape = BuildShapeEnum.Square; b.Date_Acquire = new DateTime(1970, 10, 5); b.Date_Commission = new DateTime(1970, 10, 5);
         var w = new Work { State = WorkStateEnum.WorkOrder | WorkStateEnum.Completed, Building = b, WorkOrderDate = new DateTime(2022, 8, 12), WorkCompleted = new DateTime(2022, 8, 27), IsInternal = true, Summary = "Autumn maintenance" };
-        w.Actions = new List<WorkAction>();
-        w.Actions.Add(new WorkAction { Date = new DateTime(2022, 8, 24), Worker = "Bob", Description = "Fixing the ceiling lamp" });
-        w.Actions.Add(new WorkAction { Date = new DateTime(2022, 8, 26), Worker = "John", Description = "Unclogged the sink" });
-        w.Actions.Add(new WorkAction { Date = new DateTime(2022, 8, 26), Worker = "John", Description = "Sprayed W40" });
-        w.Actions.Add(new WorkAction { Date = new DateTime(2022, 8, 27), Worker = "Alex", Description = "Replaced hinges" });
+        BuildManyActions(w);
         c.Works.Add(w);
         c.Buildings.Add(b);
         b = new Building { Category = BuildCatEnum.Residential, Denomination = "Résidence", Structure = BuildStructEnum.Concrete };
@@ -82,4 +79,16 @@ void BuildContext()
         c.Buildings.Add(b);
         c.SaveChanges();
     }
+}
+void BuildManyActions(Work w)
+{
+    w.Actions = new List<WorkAction>();
+    var Workers = new List<string> { "Bob", "John", "Alex" };
+    var Descriptions = new List<string> { "Fixing the ceiling lamp", "Unclogged the sink", "Sprayed W40", "Replaced hinges" };
+    var Random = new Random();
+    for (int i = 0; i < 40; i++)
+    {
+        w.Actions.Add(new WorkAction { Date = DateTime.Now.Date.AddDays(Random.Next(30)), Worker = Workers[Random.Next(Workers.Count - 1)], Description = Descriptions[Random.Next(Descriptions.Count - 1)] });
+    }
+
 }

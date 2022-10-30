@@ -1,13 +1,16 @@
 ﻿@page "/Assets/Building/{ID}/{Mode}"
 @page "/Assets/Building/{ID}"
 @inject IStringLocalizer<BuildingDetailView> Loc
+@using OxyPlot.Axes
+@using OxyPlot.Blazor
+@using OxyPlot
 <MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
     <ul class="nav nav-pills">
         @foreach (var tab in TabItems)
         {
             var c = "nav-link";
             var aria = "";
-            var Ref = $"/Building/{ID}/{tab.Value}";
+            var Ref = $"/Assets/Building/{ID}/{tab.Value}";
             if (Mode == tab.Value)
             {
                 c += " active";
@@ -20,13 +23,26 @@
     </ul>
     @if (Building != null)
     {
-        @if(Mode == "Informations")
+        @if (Mode == "Informations")
         {
+      @*      <div class="d-flex flex-wrap">
+                <div style="flex: 1 0 20%">
+                    <Chart @ref="ChartOne" Config="Config"></Chart>
+                </div>
+                <div style="flex: 1 0 20%">
 
+                    <Chart Config="Config2"></Chart>
+                </div>
+                <div style="flex: 1 0 20%">
+
+                    <Chart Config="Config3"></Chart>
+                </div>
+            </div>*@
+            <BlazorPlotView Model="_model"></BlazorPlotView>
             <h1 class="text-center">@GlobalLoc["Building general data"]</h1>
             <BuildingDetail Building="Building" c="Context" Denominations="List"></BuildingDetail>
         }
-        else if(Mode=="Inventory")
+        else if (Mode == "Inventory")
         {
             <h1 class="text-center">@Loc["Inventory"]</h1>
 
@@ -52,6 +68,7 @@
     [Parameter] public string ID { get; set; }
     [Parameter] public Building? Building { get; set; }
     [Parameter] public List<EntityLocalizer<ChoiceList>> List { get; set; }
+    protected PlotModel _model;
     protected List<TabItem> TabItems;
     protected record TabItem(string Display, string Value);
     protected override async Task OnInitializedAsync()
@@ -60,9 +77,10 @@
         TabItems = new List<TabItem>() { new TabItem("Informations", "Informations"), new TabItem(Loc["Inventory"], "Inventory"), new TabItem(Loc["Inspections"], "Inspections"), new TabItem(Loc["Works"], "Works"), new TabItem(Loc["Life Cycle"], "LifeCycle"), };
         if (int.TryParse(ID, out int Value))
         {
-            Building = await Context.Buildings.Include(b => b.Images).Include(b => b.Files).FirstOrDefaultAsync(b => b.ID == Value);
+            Building = await Context.Buildings.Include(b => b.Images).Include(b => b.Files).Include(w => w.Works).ThenInclude(w => w.Actions).FirstOrDefaultAsync(b => b.ID == Value);
             if (Building != null)
             {
+                _model= BuildingPlots.GetChartWork(Building);
                 var l = await Context.Choices.Where(c => c.Filter == ChoiceListEnum.Denomination).ToListAsync();
                 List = l.Select(v => new EntityLocalizer<ChoiceList>(v)).ToList();
             }
