@@ -25,20 +25,7 @@
     {
         @if (Mode == "Informations")
         {
-      @*      <div class="d-flex flex-wrap">
-                <div style="flex: 1 0 20%">
-                    <Chart @ref="ChartOne" Config="Config"></Chart>
-                </div>
-                <div style="flex: 1 0 20%">
-
-                    <Chart Config="Config2"></Chart>
-                </div>
-                <div style="flex: 1 0 20%">
-
-                    <Chart Config="Config3"></Chart>
-                </div>
-            </div>*@
-            <BlazorPlotView Model="_model"></BlazorPlotView>
+            <BuildingDashBoard Building=Building></BuildingDashBoard>
             <h1 class="text-center">@GlobalLoc["Building general data"]</h1>
             <BuildingDetail Building="Building" c="Context" Denominations="List"></BuildingDetail>
         }
@@ -68,9 +55,10 @@
     [Parameter] public string ID { get; set; }
     [Parameter] public Building? Building { get; set; }
     [Parameter] public List<EntityLocalizer<ChoiceList>> List { get; set; }
-    protected PlotModel _model;
+  
     protected List<TabItem> TabItems;
     protected record TabItem(string Display, string Value);
+  
     protected override async Task OnInitializedAsync()
     {
         DataServices.SetBusy(GlobalLoc["Loading ..."]);
@@ -80,7 +68,6 @@
             Building = await Context.Buildings.Include(b => b.Images).Include(b => b.Files).Include(w => w.Works).ThenInclude(w => w.Actions).FirstOrDefaultAsync(b => b.ID == Value);
             if (Building != null)
             {
-                _model= BuildingPlots.GetChartWork(Building);
                 var l = await Context.Choices.Where(c => c.Filter == ChoiceListEnum.Denomination).ToListAsync();
                 List = l.Select(v => new EntityLocalizer<ChoiceList>(v)).ToList();
             }

@@ -14,14 +14,15 @@ namespace ExpertCities.Data
         public static PlotModel GetChartWork(Building Build)
         {
             var Plot = new PlotModel();
+            Plot.Title = "Work Task";
             var Ser = new LineSeries();
             var Actions = Build.Works.Select(w => w.Actions).Aggregate((a, b) => { a.AddRange(b); return a; }).OrderBy(w=>w.Date).GroupBy(w=>w.Date.Date);
             foreach (var item in Actions)
             {
                 Ser.Points.Add(DateTimeAxis.CreateDataPoint(item.Key, item.Count()));
             }
-            Plot.Axes.Add(new DateTimeAxis() {  Position = AxisPosition.Bottom });
-            Plot.Axes.Add(new LinearAxis() {  Position = AxisPosition.Left, Minimum=0, });
+            Plot.Axes.Add(new DateTimeAxis() {  Position = AxisPosition.Bottom , MinorIntervalType= DateTimeIntervalType.Days });
+            Plot.Axes.Add(new LinearAxis() {  Position = AxisPosition.Left, Minimum=0, MinorStep = 1, MajorStep = 1 , MajorGridlineStyle = LineStyle.Dash });
             Plot.Series.Add(Ser);
 
             Plot.InvalidatePlot(true);

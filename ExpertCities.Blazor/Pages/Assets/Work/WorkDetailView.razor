@@ -39,27 +39,36 @@
             </div>
             <div class="box-primary">
                 <h3 class="text-center">@Loc["Actions"]</h3>
-
-                <table style="width:100%">
-                    <tr>
-                        <th>@Loc["Date"]</th>
-                        <th>@Loc["Worker"]</th>
-                        <th>@Loc["Description"]</th>
-                        <th>@Loc["Detail"]</th>
-                    </tr>
-                    @foreach (var item in Work.Actions)
-                    {
-                        <tr>
-                            <td>@item.Date.ToString("yyyy/MM/dd")</td>
-                            <td>@item.Worker</td>
-                            <td>@item.Description</td>
-                            <td><button class="Ghost" @onclick="()=>Display(item)"><span class="oi oi-cog"></span></button></td>
-                        </tr>
-                    }
-                </table>
-                <div class="justify-content-end d-flex">
-                    <button class="btn btn-secondary mt-2" @onclick="AddAction"><span class="oi oi-plus"></span></button>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <table style="width:100%">
+                            <tr>
+                                <th>@Loc["Date"]</th>
+                                <th>@Loc["Worker"]</th>
+                                <th>@Loc["Description"]</th>
+                                <th>@Loc["Detail"]</th>
+                            </tr>
+                            @foreach (var item in Work.Actions)
+                            {
+                                <tr>
+                                    <td>@item.Date.ToString("yyyy/MM/dd")</td>
+                                    <td>@item.Worker</td>
+                                    <td>@item.Description</td>
+                                    <td><button class="Ghost" @onclick="()=>Display(item)"><span class="oi oi-cog"></span></button></td>
+                                </tr>
+                            }
+                        </table>
+                        <div class="justify-content-end d-flex">
+                            <button class="btn btn-secondary mt-2" @onclick="AddAction"><span class="oi oi-plus"></span></button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <RadzenScheduler style="height: 768px;" Data="Work.Actions" TItem="WorkAction" StartProperty="Date" EndProperty="Date" SelectedIndex="0" TextProperty="Worker">
+                            <RadzenMonthView />
+                        </RadzenScheduler>
+                    </div>
                 </div>
+
             </div>
         </EditForm>
         <div class="d-flex justify-content-center mt-2">
@@ -102,7 +111,7 @@
     {
         var Return = Dialog.OpenAsync<WorkActionView>(Loc["Action"],
         new Dictionary<string, object> { { "Action", Action }, { "c", Context }, { "Loc", Loc } },
-         options: new DialogOptions{ AutoFocusFirstElement =true, CloseDialogOnEsc = true, CloseDialogOnOverlayClick =true, Resizable = true});
+         options: new DialogOptions { AutoFocusFirstElement = true, CloseDialogOnEsc = true, CloseDialogOnOverlayClick = true, Resizable = true });
     }
     protected async Task Save()
     {

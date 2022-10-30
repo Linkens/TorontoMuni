@@ -83,12 +83,12 @@ void BuildContext()
 void BuildManyActions(Work w)
 {
     w.Actions = new List<WorkAction>();
-    var Workers = new List<string> { "Bob", "John", "Alex" };
-    var Descriptions = new List<string> { "Fixing the ceiling lamp", "Unclogged the sink", "Sprayed W40", "Replaced hinges" };
+    var Workers = new List<string> { "Bob", "John", "Alex","Carlos","Julian" };
+    var Descriptions = new List<string> { "Fixing the ceiling lamp", "Unclogged the sink", "Sprayed W40", "Replaced hinges","Replacing furniture","Removing broken item" };
     var Random = new Random();
     for (int i = 0; i < 40; i++)
     {
-        w.Actions.Add(new WorkAction { Date = DateTime.Now.Date.AddDays(Random.Next(30)), Worker = Workers[Random.Next(Workers.Count - 1)], Description = Descriptions[Random.Next(Descriptions.Count - 1)] });
+        w.Actions.Add(new WorkAction { Date = DateTime.Now.Date.AddDays(-Random.Next(30)), Worker = Workers[Random.Next(Workers.Count)], Description = Descriptions[Random.Next(Descriptions.Count)] });
     }
 
 }

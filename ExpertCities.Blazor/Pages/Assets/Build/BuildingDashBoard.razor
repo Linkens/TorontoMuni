@@ -1,0 +1,15 @@
+﻿@using OxyPlot
+@using OxyPlot.Blazor
+<BlazorPlotView Controller="PlotController" Model="_model"></BlazorPlotView>
+@code {
+    protected PlotModel _model;
+    protected PlotController PlotController;
+    [Parameter] public Building Building { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        _model = BuildingPlots.GetChartWork(Building);
+        PlotController = new PlotController();
+        PlotController.UnbindAll();
+        await base.OnInitializedAsync();
+    }
+}
