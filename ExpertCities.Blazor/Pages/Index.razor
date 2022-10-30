@@ -3,35 +3,41 @@
 
 <PageTitle>@Loc["Home"]</PageTitle>
 
+<style>
+    .Vignette {
+        flex: 0 1 33.3333%;
+        padding: 2rem;
+        height: 10rem;
+    }
 
-<div class="row no-gutters">
-    <div class="col-md-6 d-flex justify-content-center align-items-center">
-        <div class="d-flex align-items-center justify-content-center back-secondary" style="height:98%;width:85%; border-radius:0rem 3rem 3rem 0rem; min-height:10rem;">
-            <div class="text-center" >
-                <h2 style="color:white;">Expert Cities</h2>
-            </div>
-
-        </div>
+        .Vignette .btn {
+            height: 100%;
+        }
+</style>
+<div class="d-flex flex-wrap">
+    <div class="Vignette">
+        <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/Asset_Management">
+            <span class="oi oi-bar-chart" style="margin-right:1rem; color:orangered"></span>
+            @Loc["Asset Management"]
+        </a>
     </div>
-    <div class="col-md-6 d-flex justify-content-center">
-        <div class="d-flex flex-column" style="width:98%;">
-            <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/Asset_Management">
-                <span class="oi oi-bar-chart" style="margin-right:1rem; color:orangered"></span>
-                @Loc["Asset Management"]
-            </a>
-            <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/404">
-                <span class="oi oi-people" style="margin-right:1rem; color:gray"></span>
-                @Loc["Human Resources"]
-            </a>
-            <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/404">
-                <span class="oi oi-credit-card" style="margin-right:1rem; color:yellow; text-align:left"></span>
-                @Loc["Account & Finance"]
-            </a>
-            <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/404">
-                <span class="oi oi-file" style="margin-right:1rem; color:blue;text-align:left"></span>
-                @Loc["Common"]
-            </a>
-        </div>
+    <div class="Vignette">
+        <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/404">
+            <span class="oi oi-people" style="margin-right:1rem; color:gray"></span>
+            @Loc["Human Resources"]
+        </a>
+    </div>
+    <div class="Vignette">
+        <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/404">
+            <span class="oi oi-credit-card" style="margin-right:1rem; color:yellow; text-align:left"></span>
+            @Loc["Account & Finance"]
+        </a>
+    </div>
+    <div class="Vignette">
+        <a class="btn btn-light d-flex align-items-center" style="margin:0.2rem 0rem" href="/404">
+            <span class="oi oi-file" style="margin-right:1rem; color:blue;text-align:left"></span>
+            @Loc["Common"]
+        </a>
     </div>
 </div>
 
