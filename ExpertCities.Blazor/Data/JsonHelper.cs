@@ -54,7 +54,7 @@ namespace ExpertCities.Blazor
         public Properties(Building Build, string BaseUrl)
         {
             Title = Build.Denomination;
-            Description = $"<b>{Build.Denomination}</b><a href=\"{BaseUrl}Assets/Building/{Build.ID}\">{Build.Denomination}</a> {Build.Description}";
+            Description = $"<a target=\"_blank\" href=\"{BaseUrl}Assets/Building/{Build.ID}\">{Build.Denomination}</a> {Build.Description}";
             Icon = "school-15";
         }
     }
