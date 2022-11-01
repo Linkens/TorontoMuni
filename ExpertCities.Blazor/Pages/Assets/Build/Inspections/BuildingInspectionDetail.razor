@@ -22,7 +22,7 @@
             <option value="@item">@item.GetDisplayDescription()</option>
         }
     </InputSelect>
-    @if(Inspection.Affectation == InspectionAffectationEnum.Internal)
+    @if (Inspection.Affectation == InspectionAffectationEnum.Internal)
     {
         <label>@Loc["Employee"]</label>
         <InputSelect class="form-control" TValue="int?" @bind-Value="Inspection.Workforce_ID">
@@ -31,15 +31,19 @@
             {
                 <option value="@item.Id">@item.Name</option>
             }
-        }
+            }
         </InputSelect>
-    }else
+    }
+    else
     {
         <label>@Loc["External Affectation"]</label>
         <input class="form-control" @bind-value="Inspection.ExternalAffectation" />
     }
-    <label>@Loc["Description"]</label>
-    <textarea @bind=Inspection.Description class="form-control" style="min-height:10rem;"></textarea>
+    <div class="form-floating mt-2">
+
+        <textarea @bind=Inspection.Description class="form-control" style="min-height:10rem;" placeholder="name@example.com"></textarea>
+        <label>@Loc["Description"]</label>
+    </div>
 </EditForm>
 
 
@@ -58,7 +62,8 @@
     protected List<Workforce> Forces;
     protected async Task<List<Workforce>> GetForces()
     {
-        if (Forces == null) {
+        if (Forces == null)
+        {
             Forces = await c.Workforce.Where(w => w.Type.HasFlag(WorkforceTypeEnum.InspectionAgent)).ToListAsync();
         }
         return Forces;
