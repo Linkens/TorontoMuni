@@ -30,7 +30,7 @@
         }
     </table>
     <div class="d-flex justify-content-end my-4">
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" @onclick=AddInspection>
             <span class="oi oi-plus"></span>
         </button>
     </div>
@@ -52,7 +52,16 @@
     {
         var Result = await Dialog.OpenAsync<BuildingInspectionDetail>(Loc["Inspection"], new Dictionary<string, object> { { "Loc", Loc }, { "Inspection", Inspect }, { "c", c } }, new DialogOptions { Width = "90%" });
         if (Result != null && (bool)Result)
+        {
+            if (!Building.Inspections.Contains(Inspect)) Building.Inspections.Add(Inspect);
             await c.SaveChangesAsync();
+        }
+    }
+    public async Task AddInspection()
+    {
+        var Inspect = new Inspection { Item = GlobalLoc["New"] };
+
+        await EditInspect(Inspect);
     }
     public void OnSlotRender(SchedulerSlotRenderEventArgs arg)
     {
