@@ -4,6 +4,7 @@
 @using OxyPlot.Axes
 @using OxyPlot.Blazor
 @using OxyPlot
+@using ExpertCities.Blazor.Pages.Assets.Build.Inspections
 <MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
     <ul class="nav nav-pills">
         @foreach (var tab in TabItems)
@@ -42,6 +43,7 @@
         else if (Mode == "Inspections")
         {
             <h1 class="text-center">@Loc["Inspections"]</h1>
+            <BuildingInspectionView Building=Building c="Context"></BuildingInspectionView>
 
         }
     }
@@ -55,17 +57,18 @@
     [Parameter] public string ID { get; set; }
     [Parameter] public Building? Building { get; set; }
     [Parameter] public List<EntityLocalizer<ChoiceList>> List { get; set; }
-  
+
     protected List<TabItem> TabItems;
     protected record TabItem(string Display, string Value);
-  
+
     protected override async Task OnInitializedAsync()
     {
         DataServices.SetBusy(GlobalLoc["Loading ..."]);
         TabItems = new List<TabItem>() { new TabItem("Informations", "Informations"), new TabItem(Loc["Inventory"], "Inventory"), new TabItem(Loc["Inspections"], "Inspections"), new TabItem(Loc["Works"], "Works"), new TabItem(Loc["Life Cycle"], "LifeCycle"), };
         if (int.TryParse(ID, out int Value))
         {
-            Building = await Context.Buildings.Include(b => b.Images).Include(b => b.Files).Include(w => w.Works).ThenInclude(w => w.Actions).FirstOrDefaultAsync(b => b.ID == Value);
+            Building = await Context.Buildings.Include(b => b.Inspections)
+            .Include(b => b.Images).Include(b => b.Files).Include(w => w.Works).ThenInclude(w => w.Actions).FirstOrDefaultAsync(b => b.ID == Value);
             if (Building != null)
             {
                 var l = await Context.Choices.Where(c => c.Filter == ChoiceListEnum.Denomination).ToListAsync();

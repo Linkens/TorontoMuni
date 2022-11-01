@@ -1,0 +1,66 @@
+﻿<EditForm Model="this">
+    <label>@Loc["Item"]</label>
+    <input class="form-control" @bind-value="Inspection.Item" />
+    <label>@Loc["Class"]</label>
+    <InputSelect class="form-control" @bind-Value=Inspection.Class>
+        @foreach (Enum item in typeof(InspectionClassEnum).GetEnumValues())
+        {
+            <option value="@item">@item.GetDisplayDescription()</option>
+        }
+    </InputSelect>
+    <label>@Loc["Type"]</label>
+    <InputSelect class="form-control" @bind-Value=Inspection.Type>
+        @foreach (Enum item in typeof(InspectionTypeEnum).GetEnumValues())
+        {
+            <option value="@item">@item.GetDisplayDescription()</option>
+        }
+    </InputSelect>
+    <label>@Loc["Affectation"]</label>
+    <InputSelect class="form-control" @bind-Value=Inspection.Affectation>
+        @foreach (Enum item in typeof(InspectionAffectationEnum).GetEnumValues())
+        {
+            <option value="@item">@item.GetDisplayDescription()</option>
+        }
+    </InputSelect>
+    @if(Inspection.Affectation == InspectionAffectationEnum.Internal)
+    {
+        <label>@Loc["Employee"]</label>
+        <InputSelect class="form-control" TValue="int?" @bind-Value="Inspection.Workforce_ID">
+            <option value="">@Loc["Select employee ..."]</option>
+            @foreach (var item in GetForces().GetAwaiter().GetResult())
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        }
+        </InputSelect>
+    }else
+    {
+        <label>@Loc["External Affectation"]</label>
+        <input class="form-control" @bind-value="Inspection.ExternalAffectation" />
+    }
+    <label>@Loc["Description"]</label>
+    <textarea @bind=Inspection.Description class="form-control" style="min-height:10rem;"></textarea>
+</EditForm>
+
+
+<div class="d-flex justify-content-center mt-2">
+    <button class="btn btn-primary" @onclick="Save"><span class="oi oi-circle-check"></span></button>
+</div>
+
+@code {
+    [Parameter] public Inspection Inspection { get; set; }
+    [Parameter] public IStringLocalizer Loc { get; set; }
+    [Parameter] public ECContext c { get; set; }
+    protected async Task Save()
+    {
+        Dialog.Close(true);
+    }
+    protected List<Workforce> Forces;
+    protected async Task<List<Workforce>> GetForces()
+    {
+        if (Forces == null) {
+            Forces = await c.Workforce.Where(w => w.Type.HasFlag(WorkforceTypeEnum.InspectionAgent)).ToListAsync();
+        }
+        return Forces;
+    }
+}

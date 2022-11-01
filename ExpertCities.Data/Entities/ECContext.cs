@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace ExpertCities.Data
 {
-    public class ECContext : DbContext
+    public class ECContext : IdentityDbContext<Workforce,Role, int>
     {
         public DbSet<Building> Buildings { get; set; }
         public DbSet<ChoiceList> Choices { get; set; }
         public DbSet<Work> Works { get; set; }
         public DbSet<HostedFile> HostedFiles { get; set; }
+        public DbSet<Workforce> Workforce { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 

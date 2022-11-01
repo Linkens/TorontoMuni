@@ -1,0 +1,166 @@
+﻿@using Radzen
+@using Radzen.Blazor.Rendering
+
+<div class="rz-view">
+    <div class="rz-view-header">
+        @for (var date = StartDate; date < StartDate.AddYears(1); date = date.AddMonths(1))
+        {
+            <div class="rz-slot-header">
+                @date.ToString("MMM", Scheduler.Culture)
+            </div>
+        }
+    </div>
+    @{
+        var days = 0;
+        var points = new Dictionary<AppointmentData, double>();
+    }
+    <div class="d-flex">
+        @for (var date = StartDate; date < EndDate; date = date.AddMonths(1))
+        {
+            <div style="flex:1">
+                <div class="rz-events">
+                    @{
+                        var SlotHeight = 4f;
+                        var CurrentTop = -SlotHeight +0.8f;
+                        var CurrentTopLabel = -SlotHeight-1.2f;
+                    }
+                    @for (var start = date; start < date.AddMonths(1); start = start.AddDays(1))
+                    {
+                        MaxAppointmentsInSlot = 2;
+                        var Offset = 0.0;
+                        CurrentTop += SlotHeight +.565f;
+                        CurrentTopLabel += SlotHeight + 1.34f;
+                        var end = start.AddDays(1);
+                        var appointments = AppointmentsInSlot(start, end);
+                        var excessCount = appointments.Count() - MaxAppointmentsInSlot;
+                        var existingTops = ExistingTops(points, appointments.Take(MaxAppointmentsInSlot));
+
+                        @foreach (var item in appointments.Take(MaxAppointmentsInSlot))
+                        {
+                            var height = 1.5;
+                            var data = item;
+                            var left = 3;
+                            var width = 95.0;
+                            <Appointment Data=@item Top=@(CurrentTop + Offset) Left=@left Width=@width Height=@height Click=@OnAppointmentClick />
+                            Offset += height;
+                        }
+
+                        @if (excessCount > 0)
+                        {
+                            var left = 20.0;
+                            var top = (double)CurrentTopLabel;//1.5 * (MaxAppointmentsInSlot + 1);
+                            var listDate = start;
+                            <a class="rz-event-list-btn" style="top: @(top.ToInvariantString())em; left: @(left.ToInvariantString())%" @onclick=@(args => OnListClick(listDate, appointments))>@String.Format(MoreText, excessCount)</a>
+                        }
+                    }
+                </div>
+                <div class="rz-slots" >
+                    @for (var start = date; start < date.AddMonths(1); start = start.AddDays(1))
+                    {
+
+                        <div @onclick="@(args => OnSlotClick(start))" @attributes=@Attributes(start) style="height:@(SlotHeight.ToString(System.Globalization.CultureInfo.InvariantCulture))em;">
+                            <div class="rz-slot-title">
+                                @start.Day
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public DateTime StartDate { get; set; }
+
+    [Parameter]
+    public DateTime EndDate { get; set; }
+
+    [Parameter]
+    public int MaxAppointmentsInSlot { get; set; }
+
+    [Parameter]
+    public string MoreText { get; set; }
+
+    [CascadingParameter]
+    public IScheduler Scheduler { get; set; }
+
+    [Parameter]
+    public IEnumerable<AppointmentData> Appointments { get; set; }
+
+    IDictionary<string, object> Attributes(DateTime start)
+    {
+        var attributes = Scheduler.GetSlotAttributes(start, start.AddDays(1));
+        attributes.Add("class", "rz-year-slot");
+        attributes["class"] = ClassList.Create("rz-slot").Add(attributes).ToString();
+        return attributes;
+    }
+
+    async Task OnSlotClick(DateTime date)
+    {
+        await Scheduler.SelectSlot(date, date.AddDays(1));
+    }
+
+    double DetermineTop(HashSet<double> existingTops)
+    {
+        var top = 1.5;
+
+        while (existingTops.Contains(top))
+        {
+            top += 1.5;
+        }
+
+        return top;
+    }
+
+    HashSet<double> ExistingTops(IDictionary<AppointmentData, double> tops, IEnumerable<AppointmentData> appointments)
+    {
+        var existingTops = new HashSet<double>();
+
+        foreach (var appointment in appointments)
+        {
+            if (tops.TryGetValue(appointment, out var existingTop))
+            {
+                existingTops.Add(existingTop);
+            }
+        }
+
+        return existingTops;
+    }
+
+    async Task OnAppointmentClick(AppointmentData data)
+    {
+        await Scheduler.SelectAppointment(data);
+    }
+
+    private AppointmentData[] AppointmentsInSlot(DateTime start, DateTime end)
+    {
+        if (Appointments == null)
+        {
+            return Array.Empty<AppointmentData>();
+        }
+
+        return Appointments.Where(item => Scheduler.IsAppointmentInRange(item, start, end)).OrderBy(item => item.Start).ThenByDescending(item => item.End).ToArray();
+    }
+
+    async Task OnListClick(DateTime date, IEnumerable<AppointmentData> appointments)
+    {
+        await Dialog.OpenAsync(date.ToShortDateString(), ds =>
+    @<div class="rz-event-list">
+            <CascadingValue Value=@Scheduler>
+                @foreach (var item in appointments)
+            {
+                    <Appointment Data=@item Click="OnListEventClick" />
+            }
+            </CascadingValue>
+    </div>);
+    }
+
+    async Task OnListEventClick(AppointmentData data)
+    {
+        Dialog.Close();
+
+        await OnAppointmentClick(data);
+    }
+}

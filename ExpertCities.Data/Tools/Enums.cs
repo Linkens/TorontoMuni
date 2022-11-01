@@ -52,4 +52,20 @@ namespace ExpertCities.Data
     {
         Drawing, Quotation, WorkShopDrawing, DataSheets, Other
     }
+    public enum InspectionTypeEnum
+    {
+        Scheduled, Spontaneous
+    } 
+    public enum InspectionClassEnum
+    {
+        A_Foundation, B_Casing, C_InteriorFinishing, D_OperatingSystem
+    }
+    public enum InspectionAffectationEnum
+    {
+        Internal, External
+    }
+    public enum WorkforceTypeEnum
+    {
+        Validator = 1, InspectionAgent = 2, WorkAgent = 4
+    }
 }

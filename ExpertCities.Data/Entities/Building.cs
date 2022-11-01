@@ -40,6 +40,7 @@ namespace ExpertCities.Data
         public string? Observation { get; set; }
         public List<BuildingImage> Images { get; set; }
         public List<BuildingFile> Files { get; set; }
+        public List<Inspection> Inspections { get; set; }
         public List<Work> Works { get; set; }
     }
     public class BuildingImage

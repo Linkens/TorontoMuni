@@ -183,4 +183,10 @@
   <data name="BuildStructEnum_Wood_Metal_Mix" xml:space="preserve">
     <value>Bois &amp; Métal</value>
   </data>
+  <data name="InspectionTypeEnum_Scheduled" xml:space="preserve">
+    <value>Planifiée</value>
+  </data>
+  <data name="InspectionTypeEnum_Spontaneous" xml:space="preserve">
+    <value>Spontanée</value>
+  </data>
 </root>

@@ -1,0 +1,69 @@
+﻿@inject IStringLocalizer<BuildingInspectionView> Loc
+<style>
+    .rz-month-view .rz-slot {
+        height: 6em !important;
+    }
+
+    .rz-slot {
+        border: 1px solid var(--rz-scheduler-border-color)
+    }
+</style>
+<MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
+
+    <table class="" style="width:100%">
+        <tr>
+            <th>@Loc["Class"]</th>
+            <th>@Loc["Item"]</th>
+            <th>@Loc["Date"]</th>
+            <th>@Loc["Affectation"]</th>
+            <th>@Loc["Edit"]</th>
+        </tr>
+        @foreach (var item in Building.Inspections)
+        {
+            <tr>
+                <td>@item.Class.GetDisplayDescription()</td>
+                <td>@item.Item</td>
+                <td>@item.Scheduled</td>
+                <td>@item.Affectation.GetDisplayDescription()</td>
+                <td><button class="btn btn-outline-primary btn-smaller" @onclick="()=> EditInspect(item)"><span class="oi oi-pencil"></span></button></td>
+            </tr>
+        }
+    </table>
+    <div class="d-flex justify-content-end my-4">
+        <button class="btn btn-primary">
+            <span class="oi oi-plus"></span>
+        </button>
+    </div>
+    <RadzenScheduler style="height: unset;" Data="Building.Inspections" StartProperty="Scheduled" EndProperty="Scheduled" TextProperty="Item" SlotRender="OnSlotRender" AppointmentRender="OnAppRender">
+        <ExpertCities.Blazor.RadzenTools.RadzenYearView></ExpertCities.Blazor.RadzenTools.RadzenYearView>
+        <RadzenMonthView />
+    </RadzenScheduler>
+</MainLoading>
+@code {
+    [Parameter] public Building Building { get; set; }
+    [Parameter] public ECContext c { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        DataServices.SetBusy(GlobalLoc["Loading"]);
+        await base.OnInitializedAsync();
+        DataServices.EndBusy();
+    }
+    public async Task EditInspect(Inspection Inspect)
+    {
+        var Result = await Dialog.OpenAsync<BuildingInspectionDetail>(Loc["Inspection"], new Dictionary<string, object> { { "Loc", Loc }, { "Inspection", Inspect }, { "c", c } }, new DialogOptions { Width = "90%" });
+        if (Result != null && (bool)Result)
+            await c.SaveChangesAsync();
+    }
+    public void OnSlotRender(SchedulerSlotRenderEventArgs arg)
+    {
+
+    }
+    public void OnAppRender(SchedulerAppointmentRenderEventArgs<Inspection> arg)
+    {
+        if (arg.Data.Type == InspectionTypeEnum.Scheduled)
+        {
+            arg.Attributes["class"] = $"rz-event-content {(arg.Data.Type == InspectionTypeEnum.Scheduled ? "insp-scheduled" : "insp-spontaneus")}";
+        }
+    }
+}
+

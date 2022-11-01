@@ -15,6 +15,7 @@
     --SecondaryColorDisabledAccent: #6E66AB;
     --SecondaryColorDisabled: #A19AD0;
 }
+
 table tr:nth-child(odd) td {
     background-color: #B294CD;
     color: #fff;
@@ -25,36 +26,47 @@ table tr:nth-child(odd) td {
     padding: 0.4rem;
     margin: 0.2rem;
 }
-.back-primary
-{
-    background-color:var(--MainColor);
+
+.back-primary {
+    background-color: var(--MainColor);
 }
+
 .back-secondary {
     background-color: var(--SecondaryColor);
-    
 }
+
 .back-accent {
     background-color: var(--AccentColor);
 }
 
 /*Buttons*/
-.btn-primary {
+ .btn-smaller {
+    padding: 0.1rem 0.2rem;
+    font-size: .6rem;
+    border-radius: 0.1rem;
+}
+.btn-primary, .btn-outline-primary {
     color: #fff;
     background-color: var(--MainColor);
     border-color: var(--MainColorBold);
 }
 
-    .btn-primary:hover {
+    .btn-primary:hover, .btn-outline-primary:hover {
         color: #fff;
         background-color: var(--MainColorBold);
         border-color: var(--MainColorAccent);
     }
 
-    .btn-primary:disabled, .btn-primary:disabled:hover {
+    .btn-primary:disabled, .btn-primary:disabled:hover, .btn-outline-primary:disabled, .btn-outline-primary:disabled:hover {
         color: #fff;
         background-color: var(--MainColorDisabled);
         border-color: var(--MainColorDisabledAccent);
     }
+
+.btn-outline-primary {
+    background-color: unset;
+    color: var(--MainColor);
+}
 
 .btn-secondary {
     color: #fff;
@@ -103,3 +115,10 @@ table tr:nth-child(odd) td {
         background-color: #e0dde4;
         border-color: #c6c3ca;
     }
+
+.insp-scheduled{
+    background-color:var(--MainColor) !important;
+}
+.insp-spontaneus {
+    background-color: var(--MainColorAccent) !important;
+}
