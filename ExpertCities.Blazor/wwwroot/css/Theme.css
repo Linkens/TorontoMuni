@@ -68,23 +68,27 @@ table tr:nth-child(odd) td {
     color: var(--MainColor);
 }
 
-.btn-secondary {
+.btn-secondary, .btn-outline-secondary {
     color: #fff;
     background-color: var(--SecondaryColor);
     border-color: var(--SecondaryColorBold);
 }
 
-    .btn-secondary:hover {
+    .btn-secondary:hover, .btn-outline-secondary:hover {
         color: #fff;
         background-color: var(--SecondaryColorBold);
         border-color: var(--SecondaryColorAccent);
     }
 
-    .btn-secondary:disabled:hover, .btn-secondary:disabled {
+    .btn-secondary:disabled:hover, .btn-secondary:disabled, .btn-outline-secondary:disabled {
         color: #fff;
         background-color: var(--SecondaryColorDisabled);
         border-color: var(--SecondaryColorDisabledAccent);
     }
+.btn-outline-secondary {
+    background-color: unset;
+    color: var(--SecondaryColor);
+}
 
 .btn-accent {
     color: #fff;

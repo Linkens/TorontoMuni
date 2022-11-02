@@ -7,7 +7,10 @@
     [Parameter] public Building Building { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        _model = BuildingPlots.GetChartWork(Building);
+        if(Building.Works.Any())
+        {
+            _model = BuildingPlots.GetChartWork(Building);
+        }
         PlotController = new PlotController();
         PlotController.UnbindAll();
         await base.OnInitializedAsync();

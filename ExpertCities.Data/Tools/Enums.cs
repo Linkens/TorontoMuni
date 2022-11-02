@@ -68,4 +68,28 @@ namespace ExpertCities.Data
     {
         Validator = 1, InspectionAgent = 2, WorkAgent = 4
     }
+    public enum InspectionStateEnum
+    {
+        Missing, Defective, Harmful, Useless, Unaccessible, Improper, Nonfunctional, Satisfying, ExcededLifetime,LimitationToObserve, Other
+    }
+    public enum InspectionConditionEnum
+    {
+        Excellent, Good, Acceptable, Poor, Critical
+    }
+    public enum InspectionCauseEnum
+    {
+        OriginalCondition, EvolutionOfNeed, Undetermined, Preventive, NotApplicable, NormalWear, UnsuitableWear, Other
+    }
+    public enum InspectionImpactEnum
+    {
+        HealthSecurity, WaterTightness, Integrity, Upgrading, Functioning, Unnatural, EnergeticEfficiency, RepetitiveServiceCall, LogisticsAvailability, Maintenance, Other
+    }
+    public enum InspectionRiskEnum
+    {
+        High, Medium, Low, NA
+    }
+    public enum InspectionOperationEnum
+    {
+        Add, Replace, Repare, Paint,Expertise,Specifications, Recommandation, Other
+    }
 }

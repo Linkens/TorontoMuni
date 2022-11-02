@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ExpertCities.Data
@@ -44,13 +47,14 @@ namespace ExpertCities.Data
                 b.Inspections.Add(new Inspection { Class = InspectionClassEnum.A_Foundation, Item = "Drain 2", Type = InspectionTypeEnum.Scheduled, Scheduled = d });
                 b.Inspections.Add(new Inspection { Class = InspectionClassEnum.A_Foundation, Item = "Drain 3", Type = InspectionTypeEnum.Scheduled, Scheduled = d });
                 c.Buildings.Add(b);
-                c.Workforce.Add(new Workforce { Name = "Carlos", Type = WorkforceTypeEnum.InspectionAgent });
-                c.Workforce.Add(new Workforce { Name = "Julian", Type = WorkforceTypeEnum.InspectionAgent });
-                c.Workforce.Add(new Workforce { Name = "Alex", Type = WorkforceTypeEnum.InspectionAgent });
+                c.Workforce.Add(new Workforce { Name = "Carlos Gnacadja", Type = WorkforceTypeEnum.InspectionAgent });
+                c.Workforce.Add(new Workforce { Name = "Samuel Cardarelli", Type = WorkforceTypeEnum.InspectionAgent });
+                c.Workforce.Add(new Workforce { Name = "Jean-Francois Dubois", Type = WorkforceTypeEnum.InspectionAgent });
                 b = new Building { Category = BuildCatEnum.Residential, Denomination = "Résidence", Structure = BuildStructEnum.Concrete };
                 b.Lat = -74.61084084623728f; b.Long = 45.60228250701617f;
                 c.Buildings.Add(b);
                 c.SaveChanges();
+                LoadManyNames();
             }
         }
         static void BuildManyActions(Work w)
@@ -63,7 +67,29 @@ namespace ExpertCities.Data
             {
                 w.Actions.Add(new WorkAction { Date = DateTime.Now.Date.AddDays(-Random.Next(30)), Worker = Workers[Random.Next(Workers.Count)], Description = Descriptions[Random.Next(Descriptions.Count)] });
             }
-
+            //https://api.namefake.com/english-united-states
         }
+        static async void LoadManyNames()
+        {
+            var Http = new HttpClient();
+            var Random = new Random();
+            for (int i = 0; i < 25; i++)
+            {
+                var s = await  Http.GetStringAsync("https://api.namefake.com/english-united-states");
+                var user = JsonSerializer.Deserialize<User>(s);
+                using (var c = new ECContext())
+                {
+                    c.Workforce.Add(new Workforce { Name = user.Name, Type =(WorkforceTypeEnum) Random.Next(4)+1 });
+                    await c.SaveChangesAsync();
+                }
+
+            }
+        }
+        private class User
+        {
+            [JsonPropertyName("name")]
+            public string Name { get; set; }
+        }
+
     }
 }

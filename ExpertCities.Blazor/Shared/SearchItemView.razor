@@ -1,0 +1,43 @@
+﻿@typeparam T
+<MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
+    <label>@GlobalLoc["Search"]</label>
+    <div class="input-group">
+        <input class="form-control" @bind-value=Helper.StringSearch @bind-value:event="oninput" placeholder="Search text" />
+        @if (!string.IsNullOrEmpty(Helper.StringSearch))
+        {
+            <button class="btn btn-outline-danger" type="button" @onclick="(()=> Helper.StringSearch=string.Empty)"><span class="oi oi-x"></span></button>
+        }
+    </div>
+    <div class="box-primary">
+        @if (Helper.FilteredItems.Any())
+        {
+
+            <ul class="list-group" style="height:600px; overflow:auto">
+                @foreach (var item in Helper.FilteredItems)
+                {
+                    <li style="cursor:pointer" @onclick="()=>Select(item)" class="list-group-item @((Helper.Selected != null && Helper.Selected.Equals(item)) ? "active" : "")">
+                        @(Helper.GetDisplay(item))</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <h3 class="text-center">@GlobalLoc["No match"]</h3>
+        }
+    </div>
+</MainLoading>
+@code {
+    [Parameter] public SearchHelper<T> Helper { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        DataServices.SetBusy(GlobalLoc["Loading"]);
+        Helper.ListChanged += (a,e) => InvokeAsync(StateHasChanged);
+        await base.OnInitializedAsync();
+        DataServices.EndBusy();
+    }
+    protected async Task Select(T Item)
+    {
+        if (Helper.Selected != null && Helper.Selected.Equals(Item)) Dialog.Close(Item);
+        Helper.Selected = Item;
+    }
+}

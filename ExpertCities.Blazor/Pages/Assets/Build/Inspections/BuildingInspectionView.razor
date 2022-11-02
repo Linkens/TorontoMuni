@@ -17,6 +17,7 @@
             <th>@Loc["Date"]</th>
             <th>@Loc["Affectation"]</th>
             <th>@Loc["Edit"]</th>
+            <th>@Loc["Report"]</th>
         </tr>
         @foreach (var item in Building.Inspections)
         {
@@ -26,6 +27,7 @@
                 <td>@item.Scheduled</td>
                 <td>@item.Affectation.GetDisplayDescription()</td>
                 <td><button class="btn btn-outline-primary btn-smaller" @onclick="()=> EditInspect(item)"><span class="oi oi-pencil"></span></button></td>
+                <td><button class="btn btn-outline-secondary btn-smaller" @onclick="()=> CreateReport(item)"><span class="oi oi-clipboard"></span></button></td>
             </tr>
         }
     </table>
@@ -56,6 +58,18 @@
             if (!Building.Inspections.Contains(Inspect)) Building.Inspections.Add(Inspect);
             await c.SaveChangesAsync();
         }
+    }
+    public async Task CreateReport(Inspection Inspect)
+    {
+        DataServices.SetBusy(Loc["Loading"]);
+        await c.Entry(Inspect).Reference(i => i.Report).LoadAsync();
+        if (Inspect.Report == null) Inspect.Report = new InspectionReport() {Date = DateTime.Now};
+        else await c.Entry(Inspect.Report).Reference(r => r.Approver).LoadAsync();
+        DataServices.SetBusy(Loc["Inspection"]);
+        var Result = await Dialog.OpenAsync<BuildingInspectionReportView>(Loc["Report"], new Dictionary<string, object> { { "Loc", Loc }, { "Report", Inspect.Report }, { "c", c } }, new DialogOptions { Width = "90%" });
+        if (Result != null && (bool)Result)
+            await c.SaveChangesAsync();
+        DataServices.EndBusy();
     }
     public async Task AddInspection()
     {

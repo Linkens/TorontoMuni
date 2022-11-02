@@ -25,5 +25,6 @@ namespace ExpertCities.Data
         public string Item { get; set; }
         public string? Description { get; set; }
         public DateTime Scheduled { get; set; }
+        public InspectionReport Report { get; set; }
     }
 }

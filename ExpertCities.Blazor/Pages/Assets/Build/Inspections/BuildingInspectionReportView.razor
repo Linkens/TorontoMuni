@@ -1,0 +1,115 @@
+﻿<EditForm Model="this">
+    <label>@Loc["Report Date"]</label>
+    <InputDate class="form-control" @bind-Value=Report.Date></InputDate>
+    <label>@Loc["Transportation"]</label>
+    <input class="form-control" @bind-value="Report.Transport" />
+    <label>@Loc["Hours"]</label>
+    <input class="form-control" type="number" @bind-value="Report.Hours" />
+    <label>@Loc["People"]</label>
+    <input class="form-control" type="number" @bind-value="Report.People" />
+    <label>@Loc["Used Tools"]</label>
+    <input class="form-control" @bind-value="Report.ToolUsed" />
+    <label>@Loc["Used Material"]</label>
+    <input class="form-control" @bind-value="Report.MaterialUsed" />
+    <div class="box-primary">
+        <h2 class="text-center">@Loc["Observations"]</h2>
+        <label>@Loc["State"]</label>
+        <InputSelect class="form-control" @bind-Value=Report.State>
+            @foreach (Enum item in typeof(InspectionStateEnum).GetEnumValues())
+            {
+                <option value="@item">@item.GetDisplayDescription()</option>
+            }
+        </InputSelect>
+        <label>@Loc["Condition"]</label>
+        <InputSelect class="form-control" @bind-Value=Report.Condition>
+            @foreach (Enum item in typeof(InspectionConditionEnum).GetEnumValues())
+            {
+                <option value="@item">@item.GetDisplayDescription()</option>
+            }
+        </InputSelect>
+        <label>@Loc["Cause"]</label>
+        <InputSelect class="form-control" @bind-Value=Report.Cause>
+            @foreach (Enum item in typeof(InspectionCauseEnum).GetEnumValues())
+            {
+                <option value="@item">@item.GetDisplayDescription()</option>
+            }
+        </InputSelect>
+        <label>@Loc["Impact"]</label>
+        <InputSelect class="form-control" @bind-Value=Report.Impact>
+            @foreach (Enum item in typeof(InspectionImpactEnum).GetEnumValues())
+            {
+                <option value="@item">@item.GetDisplayDescription()</option>
+            }
+        </InputSelect>
+        <label>@Loc["Risk"]</label>
+        <InputSelect class="form-control" @bind-Value=Report.Risk>
+            @foreach (Enum item in typeof(InspectionRiskEnum).GetEnumValues())
+            {
+                <option value="@item">@item.GetDisplayDescription()</option>
+            }
+        </InputSelect>
+        <label>@Loc["Operation"]</label>
+        <InputSelect class="form-control" @bind-Value=Report.Risk>
+            @foreach (Enum item in typeof(InspectionOperationEnum).GetEnumValues())
+            {
+                <option value="@item">@item.GetDisplayDescription()</option>
+            }
+        </InputSelect>
+    </div>
+    <div class="form-floating mt-1">
+        <textarea class="form-control" style="min-height:10rem;" @bind=Report.Recommandation placeholder=" "></textarea>
+        <label>@Loc["Recommandations"]</label>
+    </div>
+
+    <div class="box-primary">
+        <h2>@Loc["Approval"]</h2>
+        <label>@Loc["Approver"]</label>
+        <div class="input-group">
+            <div class="form-control">@Report.Approver?.Name</div>
+            <button class="btn btn-outline-secondary" type="button" @onclick=GetApprover><span class="oi oi-magnifying-glass"></span></button>
+        </div>
+            <label>@Loc["Approval Date"]</label>
+        <InputDate class="form-control" @bind-Value=Report.ApprovalDate></InputDate>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" @bind=Report.Approved></input>
+            <label>@Loc["Yes/No"]</label>
+        </div>
+        <div class="form-floating mt-1">
+            <textarea class="form-control" style="min-height:10rem;" @bind=Report.Comments placeholder=" "></textarea>
+            <label>@Loc["Comments"]</label>
+        </div>
+    </div>
+</EditForm>
+<div class="d-flex justify-content-center mt-2">
+    <button class="btn btn-primary" @onclick="()=>Save()" >@GlobalLoc["Save"]</button>
+</div>
+@code {
+    [Parameter] public InspectionReport Report { get; set; }
+    [Parameter] public IStringLocalizer Loc { get; set; }
+    [Parameter] public ECContext c { get; set; }
+    protected async Task Save()
+    {
+        Dialog.Close(true);
+    }
+    protected List<Workforce> Forces;
+    protected async Task<List<Workforce>> GetForces()
+    {
+        if (Forces == null)
+        {
+            Forces = await c.Workforce.Where(w => w.Type.HasFlag(WorkforceTypeEnum.InspectionAgent)).ToListAsync();
+        }
+        return Forces;
+    }
+    protected async Task GetApprover()
+    {
+        var Inspectors = await c.Workforce.Where(w => w.Type.HasFlag(WorkforceTypeEnum.Validator)).ToListAsync();
+        var Helper = new SearchHelper<Workforce>(Inspectors);
+        Helper.GetDisplay = w => w.Name;
+        Helper.GetSimpleSearch = w => w.Name;
+        var Res = await Dialog.OpenAsync<SearchItemView<Workforce>>("", new Dictionary<string, object> { { "Helper", Helper } });
+        if(Res != null)
+        {
+            Report.Approver = Helper.Selected;
+        }
+    }
+}
