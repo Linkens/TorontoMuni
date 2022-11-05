@@ -28,8 +28,8 @@
                 </NavLink>
             </div>
             <div class="nav-item pr-3 pl-5 collapse">
-                <NavLink class="nav-link" href="Assets/Roads">
-                    <span class="oi oi-signpost" aria-hidden="true"></span> @Loc["Roads"]
+                <NavLink class="nav-link" href="Assets/Loands">
+                    <span class="oi oi-map-marker" aria-hidden="true"></span> @Loc["Loands"]
                 </NavLink>
             </div>
             <div class="nav-item pr-3 pl-5 collapse">
@@ -37,22 +37,63 @@
                     <span class="oi oi-paperclip" aria-hidden="true"></span> @Loc["Equipment"]
                 </NavLink>
             </div>
-                  <div class="nav-item pr-3 pl-5 collapse">
-                    <NavLink class="nav-link" href="Assets/Works">
-                    <span class="oi oi-wrench" aria-hidden="true"></span> @Loc["Works"]
-                    </NavLink>
-                </div>
+            <div class="nav-item pr-3 pl-5 collapse">
+                <NavLink class="nav-link" href="Assets/Roads">
+                    <span class="oi oi-signpost" aria-hidden="true"></span> @Loc["Roads"]
+                </NavLink>
+            </div>
+            <div class="nav-item pr-3 pl-5 collapse">
+                <NavLink class="nav-link" href="Assets/Roads">
+                    <span class="oi oi-droplet" aria-hidden="true"></span> @Loc["Piping"]
+                </NavLink>
+            </div>
+            <div class="nav-item pr-3 pl-5 collapse">
+                <NavLink class="nav-link" href="Assets/Roads">
+                    <span class="oi oi-bolt" aria-hidden="true"></span> @Loc["Energies"]
+                </NavLink>
+            </div>
+            <div class="nav-item pr-3 pl-5 collapse">
+                <NavLink class="nav-link" href="Assets/Roads">
+                    <span class="oi oi-file" aria-hidden="true"></span> @Loc["Furnishings"]
+                </NavLink>
+            </div>
+            <div class="nav-item pr-3 pl-5 collapse">
+                <NavLink class="nav-link" href="Assets/Roads">
+                    <span class="oi oi-phone" aria-hidden="true"></span> @Loc["IT"]
+                </NavLink>
+            </div>
+            <div class="nav-item pr-3 pl-5 collapse">
+                <NavLink class="nav-link" href="Assets/Roads">
+                    <span class="oi oi-lightbulb" aria-hidden="true"></span> @Loc["Appliances"]
+                </NavLink>
+            </div>
+            <div class="nav-item pr-3 pl-5 collapse">
+                <NavLink class="nav-link" href="Assets/Roads">
+                    <span class="oi oi-vertical-align-top" aria-hidden="true"></span> @Loc["Bridges"]
+                </NavLink>
+            </div>
+            <div class="nav-item pr-3 pl-5 collapse">
+                <NavLink class="nav-link" href="Assets/Roads">
+                    <span class="oi oi-loop" aria-hidden="true"></span> @Loc["Fleet"]
+                </NavLink>
+            </div>
+
+            <div class="nav-item pr-3 pl-5 collapse">
+                <NavLink class="nav-link" href="Assets/Works">
+                    <span class="oi oi-inbox" aria-hidden="true"></span> @Loc["Graveyard"]
+                </NavLink>
+            </div>
         }
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="HR">
-                <span class="oi oi-people" aria-hidden="true"></span> @Loc["Human Resources"]
-            </NavLink>
+        @*        <div class="nav-item px-3">
+        <NavLink class="nav-link" href="HR">
+        <span class="oi oi-people" aria-hidden="true"></span> @Loc["Human Resources"]
+        </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Account_Finance">
-                <span class="oi oi-credit-card" aria-hidden="true"></span> @Loc["Account & Finance"]
-            </NavLink>
-        </div>
+        <NavLink class="nav-link" href="Account_Finance">
+        <span class="oi oi-credit-card" aria-hidden="true"></span> @Loc["Account & Finance"]
+        </NavLink>
+        </div>*@
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="Common">
                 <span class="oi oi-file" aria-hidden="true"></span> @Loc["Common"]
@@ -74,12 +115,12 @@
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
         var b = Nav.Uri.Contains("/Assets/") || Nav.Uri.Contains("/Asset_Management");
-        if (b != AssetExpanded) AssetExpanded =b; StateHasChanged();
+        if (b != AssetExpanded) AssetExpanded = b; StateHasChanged();
         return base.OnAfterRenderAsync(firstRender);
     }
     protected override Task OnInitializedAsync()
     {
-       
+
         return base.OnInitializedAsync();
     }
 }

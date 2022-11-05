@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ExpertCities.Data\ExpertCities.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
+
 </Project>
