@@ -17,7 +17,11 @@
 }
 
 table tr:nth-child(odd) td {
-    background-color: #B294CD;
+    background-color: var(--MainColor);
+    color: #fff;
+}
+table.accent tr:nth-child(odd) td {
+    background-color: var(--MainColorAccent);
     color: #fff;
 }
 /*Background*/

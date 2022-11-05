@@ -1,8 +1,47 @@
-Plusieurs monaie ?
-Plusieurs entitées sur une même base de données prospection pour hebergement
-rencontre mercredi future map
-photo pour export PDF
-préparer un contrat
-vendredi
+Plusieurs monaie ? 
+
+
 fiche d'immeuble
-Hébergeur
+
+
+index =virer todo
+TOdo arborescence dans le menu assent management
+Dates 1 ligne 3 colonne remove other
+Position = rubique contact Nom responsable "Gestionnaire"
+
+Actual value = calcul fixe
+
+inspection (2), information (1),inventaire(3), travaux (4)
+
+Buildings :
+List tout bâtiments pas de (remplacer cog par un "pavé" => context menu (inventaire, life cycle pour jump)
+
+
+Dans informations rajouter graphique en courbe cumulée*
+
+myassettag.com
+assettiger
+
+Calendrier inspection : par saison (Automne)
+si planifié : génration d'un bon de travail : ajouter le rapport d'inspection. Si Interne / Externe
+
+pk.eyJ1Ijoic29mdHdhcmVmYWN0b3J5ZnIiLCJhIjoiY2w5dTl4eHZnMDlnMzN4cWV5MTA2b2Z5ayJ9.-RpoJ1e5XLdEJiG0GJKUAQ 
+
+budget lié à une date
+lifecylce: liste de dépense
+Budget => commande séparé des items, possibiliter d'allouer les dépenses sur les différents modules 
+
+05/11
+Editer et supprimer Bâtiment
+Buildings => Autre bouton pour aller direct inspection inventory depuis la carte
+
+Un graphique travaux, Planifie et non planifié
+
+Export PDF ajout des graphiques
+export pdf titre fiche d'immeuble.
+
+On inspecte un inventaire
+Approval inspection => verrouiller
+
+Trier, filtrer par mois ou composante / Inspections
+Travaux > suite inspection

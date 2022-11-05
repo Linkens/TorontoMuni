@@ -1,5 +1,6 @@
 ﻿using ExpertCities.Blazor;
 using ExpertCities.Data;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System.Reflection.Emit;
 using System.Text.Json;
@@ -18,12 +19,12 @@ namespace ExpertCities
        
             await JS.InvokeVoidAsync("SignInMapBox", Token, Center, Zoom);
         }
-        public static async Task AddLocation(this IJSRuntime JS, List<Building> Buildings, string BaseUrl)
+        public static async Task AddLocation(this IJSRuntime JS, List<Building> Buildings, string BaseUrl, IStringLocalizer Loc)
         {
             var Helper = new JsonHelper();
             foreach (var item in Buildings)
             {
-                Helper.Data.Features.Add(new Feature(item, BaseUrl));
+                Helper.Data.Features.Add(new Feature(item, BaseUrl, Loc));
             }
             var Building = JsonSerializer.Serialize(Helper);
             await JS.InvokeVoidAsync("AddBuilding", Helper);

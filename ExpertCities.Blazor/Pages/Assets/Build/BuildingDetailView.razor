@@ -5,6 +5,7 @@
 @using OxyPlot.Blazor
 @using OxyPlot
 @using ExpertCities.Blazor.Pages.Assets.Build.Inspections
+@using ExpertCities.Blazor.Pages.Assets.Build.Work
 <MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
     <ul class="nav nav-pills">
         @foreach (var tab in TabItems)
@@ -38,6 +39,7 @@
         else if (Mode == "Works")
         {
             <h1 class="text-center">@Loc["Works"]</h1>
+            <WorkListView Building=Building c="Context"></WorkListView>
 
         }
         else if (Mode == "Inspections")

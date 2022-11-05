@@ -1,6 +1,7 @@
 ﻿@page "/Assets/Buildings"
 @inject SecretServices Secrets;
 @inject IStringLocalizer<BuildingList> Localizer
+@inject IStringLocalizer<BuildingDetailView> LocBuilding
 <PageTitle>@Localizer["Building list"]</PageTitle>
 <MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
     <div id='map' style='width: 100%; height:30rem;'></div>
@@ -45,7 +46,7 @@
         DataServices.EndBusy();
         StateHasChanged();
         await JS.MapBox_SignIn(Secrets.Configuration["MapboxToken"], new float[] { -74.605f, 45.606f },13.5f);
-        await JS.AddLocation(Buildings, Nav.BaseUri);
+        await JS.AddLocation(Buildings, Nav.BaseUri, LocBuilding);
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

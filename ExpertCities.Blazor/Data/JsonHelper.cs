@@ -1,4 +1,5 @@
 ﻿using ExpertCities.Data;
+using Microsoft.Extensions.Localization;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
 
@@ -26,9 +27,9 @@ namespace ExpertCities.Blazor
         public Geometry Geometry { get; set; }
         [JsonPropertyName("properties")]
         public Properties Properties { get; set; }
-        public Feature(Building Build, string BaseUrl)
+        public Feature(Building Build, string BaseUrl, IStringLocalizer Loc)
         {
-            Properties = new Properties(Build, BaseUrl);
+            Properties = new Properties(Build, BaseUrl, Loc);
             Geometry = new Geometry(Build);
         }
     }
@@ -51,11 +52,20 @@ namespace ExpertCities.Blazor
         public string Icon { get; set; }
         [JsonPropertyName("description")]
         public string Description { get; set; }
-        public Properties(Building Build, string BaseUrl)
+        public Properties(Building Build, string BaseUrl, IStringLocalizer Loc)
         {
             Title = Build.Denomination;
-            Description = $"<a target=\"_blank\" href=\"{BaseUrl}Assets/Building/{Build.ID}\">{Build.Denomination}</a> {Build.Description}";
+            Description = $"<a class=\"text-center\" target=\"_blank\" href=\"{BaseUrl}Assets/Building/{Build.ID}\">{Build.Denomination}</a> {Build.Description} <br/><table class=\"accent\" style=\"width:100%;\"><tr>" +
+                $"<td>{GetA(BaseUrl, Build.ID.ToString(), "Inventory", Loc["Inventory"])}</td>" +
+                $"<td>{GetA(BaseUrl, Build.ID.ToString(), "Inspections", Loc["Inspections"])}</td>" +
+                $"<td>{GetA(BaseUrl, Build.ID.ToString(), "Works", Loc["Works"])}</td>" +
+                      $"<td>{GetA(BaseUrl, Build.ID.ToString(), "LifeCycle", Loc["Life Cycle"])}</td>" +
+                $"</tr></table>";
             Icon = "school-15";
+        }
+        protected string GetA(string BaseUrl, string ID, string Link, string Name)
+        {
+            return $"<a class=\"text-center link-light mx-1\" target=\"_blank\" href=\"{BaseUrl}Assets/Building/{ID}/{Link}\">{Name}</a>";
         }
     }
 

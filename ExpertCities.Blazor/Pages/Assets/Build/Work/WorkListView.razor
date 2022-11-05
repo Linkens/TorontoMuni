@@ -1,0 +1,36 @@
+﻿@inject IStringLocalizer<WorkListView> Loc
+<MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
+    <table style="width:100%">
+        <tr>
+            <th>@Loc["Status"]</th>
+            <th>@Loc["Internal"]</th>
+            <th>@Loc["Actions"]</th>
+            <th>@Loc["Detail"]</th>
+        </tr>
+        @foreach (var item in Building.Works)
+        {
+            <tr>
+                <td><WorkStateVisual Work="@item"></WorkStateVisual></td>
+                <td>
+                    @if (item.IsInternal)
+                    {
+                        <span class="oi oi-check" style="color:green"></span>
+                    }
+                </td>
+                <td>@item.Actions.Count</td>
+                <td><a target="_blank" href="/Assets/BuildingDetail/Work/@item.ID"><span class="oi oi-action-redo"></span></a></td>
+            </tr>
+        }
+    </table>
+</MainLoading>
+@code {
+    [Parameter] public Building Building { get; set; }
+    [Parameter] public ECContext c { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        DataServices.SetBusy(GlobalLoc["Loading"]);
+        await c.Entry(Building).Collection(b => b.Works).Query().Include(w => w.Actions).LoadAsync();
+        await base.OnInitializedAsync();
+        DataServices.EndBusy();
+    }
+}
