@@ -20,6 +20,10 @@
         <label>@Loc["Item"]</label>
         <input @bind-value=@Inventory.Item class="form-control" />
     }
+    <label>@Loc["Level"]</label>
+    <input class="form-control" @bind-value=Inventory.Level />
+    <label>@Loc["Room"]</label>
+    <input class="form-control" @bind-value=Inventory.Room />
     <label>@Loc["Quantity"]</label>
     <input class="form-control" type="number" @bind-value=Inventory.Quantity />
     <div class="row">
@@ -100,7 +104,7 @@
     }
     protected async Task Close()
     {
-        await c.SaveChangesAsync();
-        Dialog.Close();
+        //await c.SaveChangesAsync();
+        Dialog.Close(true);
     }
 }

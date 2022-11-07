@@ -18,6 +18,9 @@
             </tr>
         }
     </table>
+    <div class="d-flex justify-content-end mt-2">
+        <button class="btn btn-primary" @onclick="CreateInventory"><span class="oi oi-plus"></span></button>
+    </div>
 </MainLoading>
 @code {
     [Parameter] public Asset Building { get; set; }
@@ -36,7 +39,15 @@
     {
         if(Formats == null)
             Formats = await c.Uniformats.ToListAsync();
-        await Dialog.OpenAsync<InventoryEditView>(Loc["Inventory"], new Dictionary<string, object> { { "c", c }, { "Inventory", Item }, { "Formats", Formats },{ "Loc", Loc} });
-
+        var b = await Dialog.OpenAsync<InventoryEditView>(Loc["Inventory"], new Dictionary<string, object> { { "c", c }, { "Inventory", Item }, { "Formats", Formats },{ "Loc", Loc} });
+        if (b!=null && (bool)b)
+        {
+            if (Item.Asset_ID == 0) Building.Inventory.Add(Item);
+            await c.SaveChangesAsync();
+        }
+    }
+    protected async Task CreateInventory()
+    {
+        await EditInventory(new Inventory { });
     }
 }
