@@ -67,7 +67,7 @@
     protected async Task AddBat()
     {
         var Bat = new Asset { Denomination = Localizer["New"] };
-        Bat.Files = new List<BuildingFile>();
+        Bat.Files = new List<AssetFile>();
         var Return = await Dialog.OpenAsync<BuildingDetail>(GlobalLoc["Building general data"],
         new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations.Select(d => new EntityLocalizer<ChoiceList>(d)).ToList() }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
 

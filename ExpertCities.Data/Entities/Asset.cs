@@ -12,7 +12,7 @@ namespace ExpertCities.Data
         public AssetStructEnum Structure { get; set; }
         public BuildShapeEnum Shape { get; set; }
         public string? Denomination { get; set; }
-
+        public AssetTypeEnum Type { get; set; }
         public DateTime? Date_Acquire { get; set; }
         public DateTime? Date_Commission { get; set; }
         public DateTime? Date_Garantee { get; set; }
@@ -38,19 +38,19 @@ namespace ExpertCities.Data
         public string? Position { get; set; }
         public string? Description { get; set; }
         public string? Observation { get; set; }
-        public List<BuildingImage> Images { get; set; }
-        public List<BuildingFile> Files { get; set; }
+        public List<AssetImage> Images { get; set; }
+        public List<AssetFile> Files { get; set; }
         public List<Inspection> Inspections { get; set; }
         public List<Work> Works { get; set; }
     }
-    public class BuildingImage
+    public class AssetImage
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         public int Building_ID { get; set; }
         [ForeignKey(nameof(Building_ID))]
-        public Asset Building { get; set; }
+        public Asset Asset { get; set; }
         public byte[] Image { get; set; }
     }
 }

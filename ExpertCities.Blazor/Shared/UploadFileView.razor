@@ -37,7 +37,7 @@
         public byte[] Content;
     }
     protected TempFile File;
-    [Parameter] public BuildingFile? BuildingFile { get; set; }
+    [Parameter] public AssetFile? BuildingFile { get; set; }
     protected async Task Validate()
     {
         var Id = await FileManager.SaveFile(File.Content);

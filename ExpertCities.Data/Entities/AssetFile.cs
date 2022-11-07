@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace ExpertCities.Data
 {
 
-    public class BuildingFile
+    public class AssetFile
     {
         [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public int Building_ID { get; set; }
         [ForeignKey(nameof(Building_ID))]
-        public Asset Building { get; set; }
+        public Asset Asset { get; set; }
         public int File_ID { get; set; }
         [ForeignKey(nameof(File_ID))]
         public HostedFile File { get; set; }

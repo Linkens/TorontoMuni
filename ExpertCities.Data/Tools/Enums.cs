@@ -24,6 +24,10 @@ namespace ExpertCities.Data
             return string.IsNullOrWhiteSpace(resourceDisplayName) ? string.Format("{0}", e) : resourceDisplayName;
         }
     }
+    public enum AssetTypeEnum
+    {
+        Building, Land, Equipement, Road, Piping, Energy
+    }
     public enum AssetCatEnum
     {
         Residential = 1, Administrative = 2, Recreational = 4, Commercial = 8, Industrial = 16, Agricultural = 32, Hospital = 64, School = 128

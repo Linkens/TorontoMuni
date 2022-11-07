@@ -266,7 +266,7 @@
     }
     protected async Task UploadFile()
     {
-        var NewFile = new BuildingFile { Type = FileTypeEnum.Other };
+        var NewFile = new AssetFile { Type = FileTypeEnum.Other };
         var File = await Dialog.OpenAsync<UploadFileView>("", new Dictionary<string, object> { { "BuildingFile", NewFile } });
         if (File != null)
         {
@@ -276,7 +276,7 @@
         }
         await c.SaveChangesAsync();
     }
-    protected async Task DownloadFile(BuildingFile File)
+    protected async Task DownloadFile(AssetFile File)
     {
         var Bytes = await FileManager.GetFile(File.File);
         await JS.SaveAny(Convert.ToBase64String(Bytes), File.File.ContentType, File.File.FileName);
@@ -319,8 +319,8 @@
                 await TestImage.SaveAsJpegAsync(mem);
                 Bytes = mem.ToArray();
             }
-            Building.Images = new List<BuildingImage>();
-            Building.Images.Add(new BuildingImage { Image = Bytes });
+            Building.Images = new List<AssetImage>();
+            Building.Images.Add(new AssetImage { Image = Bytes });
         }
         catch (Exception ex)
         {
