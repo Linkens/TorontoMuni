@@ -10,7 +10,7 @@ namespace ExpertCities.Data
 {
     public static class EnumHelp
     {
-        public static string GetLocalizeName(this Enum e)
+        public static string GetLocalizedName(this Enum e)
         {
             var rm = new ResourceManager("ExpertCities.Data.Tools.EnumHelp",typeof(EnumHelp).Assembly);
             string? resourceDisplayName = null;
@@ -95,5 +95,13 @@ namespace ExpertCities.Data
     public enum InspectionOperationEnum
     {
         Add, Replace, Repare, Paint,Expertise,Specifications, Recommandation, Other
+    }
+    public enum InventoryMethodEnum
+    {
+        Legacy, Uniformat
+    }
+    public enum InventoryTypeEnum
+    {
+        A_Infrastructure, B_Superstructure_Casing, C_InteriorFinishing =1000, D_Services
     }
 }

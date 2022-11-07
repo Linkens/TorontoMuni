@@ -189,4 +189,7 @@
   <data name="InspectionTypeEnum_Spontaneous" xml:space="preserve">
     <value>Spontanée</value>
   </data>
+  <data name="InventoryMethodEnum_Legacy" xml:space="preserve">
+    <value>Traditionnelle</value>
+  </data>
 </root>

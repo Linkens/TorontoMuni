@@ -2,6 +2,7 @@
 using ExpertCities.Data;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using System.Globalization;
 using System.Reflection.Emit;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -29,7 +30,16 @@ namespace ExpertCities
             var Building = JsonSerializer.Serialize(Helper);
             await JS.InvokeVoidAsync("AddBuilding", Helper);
         }
-
+        public static string GetLocalizedValue(this ILocalize Entity, CultureInfo culture = null)
+        {
+            if (Entity == null) return string.Empty;
+            var _Culture = culture ?? CultureInfo.CurrentCulture;
+            return _Culture.Name == "fr-CA" ? Entity.ValueCA : Entity.Value;
+        }
+        public static string GetLocalizedValue(this Uniformat Entity, CultureInfo culture = null)
+        {
+            return $"{Entity.Code} - {GetLocalizedValue((ILocalize)Entity)}";
+        }
 
     }
 }

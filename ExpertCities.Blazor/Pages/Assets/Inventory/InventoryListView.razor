@@ -1,0 +1,42 @@
+﻿@inject IStringLocalizer<InventoryListView> Loc
+<MainLoading IsLoading=@DataServices.IsBusy LoadingText="@DataServices.LoadingText">
+    <table style="width:100%">
+        <tr>
+            <th>@Loc["Method"]</th>
+            <th>@Loc["Level"]</th>
+            <th>@Loc["Room"]</th>
+            <th>@Loc["Item"]</th>
+        </tr>
+        @foreach (var item in Building.Inventory)
+        {
+            <tr>
+                <td>@item.Method.GetLocalizedName()</td>
+                <td>@item.Level</td>
+                <td>@item.Room</td>
+                <td>@(item.Method == InventoryMethodEnum.Uniformat ? item.Uniformat?.GetLocalizedValue() : item.Item)</td>
+                <td><button @onclick="(()=> EditInventory(item))" class="btn btn-outline-info btn-smaller"><span class="oi oi-pencil"></span></button></td>
+            </tr>
+        }
+    </table>
+</MainLoading>
+@code {
+    [Parameter] public Asset Building { get; set; }
+    [Parameter] public ECContext c { get; set; }
+    protected EntityLocalizer<Uniformat> ELoc;
+
+    protected async override Task OnInitializedAsync()
+    {
+        DataServices.SetBusy(GlobalLoc["Loading"]);
+        await c.Entry(Building).Collection(b => b.Inventory).Query().Include(w => w.Uniformat).LoadAsync();
+        await base.OnInitializedAsync();
+        DataServices.EndBusy();
+    }
+    protected List<Uniformat> Formats;
+    protected async Task EditInventory(Inventory Item)
+    {
+        if(Formats == null)
+            Formats = await c.Uniformats.ToListAsync();
+        await Dialog.OpenAsync<InventoryEditView>(Loc["Inventory"], new Dictionary<string, object> { { "c", c }, { "Inventory", Item }, { "Formats", Formats },{ "Loc", Loc} });
+
+    }
+}

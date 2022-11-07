@@ -1,6 +1,7 @@
 ﻿@page "/Assets/Building/{ID}/{Mode}"
 @page "/Assets/Building/{ID}"
 @inject IStringLocalizer<BuildingDetailView> Loc
+@using ExpertCities.Blazor.Pages.Assets.Inventory
 @using OxyPlot.Axes
 @using OxyPlot.Blazor
 @using OxyPlot
@@ -34,6 +35,7 @@
         else if (Mode == "Inventory")
         {
             <h1 class="text-center">@Loc["Inventory"]</h1>
+            <InventoryListView Building="Building" c="Context"></InventoryListView>
 
         }
         else if (Mode == "Works")

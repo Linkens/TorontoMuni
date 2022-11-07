@@ -41,6 +41,7 @@ namespace ExpertCities.Data
         public List<AssetImage> Images { get; set; }
         public List<AssetFile> Files { get; set; }
         public List<Inspection> Inspections { get; set; }
+        public List<Inventory> Inventory { get; set; }
         public List<Work> Works { get; set; }
     }
     public class AssetImage

@@ -87,7 +87,7 @@
         DataServices.SetBusy(GlobalLoc["Loading ..."]);
         if (int.TryParse(ID, out int WorkInt))
         {
-            Work = await Context.Works.Include(w => w.Building).Include(w => w.Actions).FirstOrDefaultAsync(w => w.ID == WorkInt);
+            Work = await Context.Works.Include(w => w.Asset).Include(w => w.Actions).FirstOrDefaultAsync(w => w.ID == WorkInt);
         }
         await base.OnInitializedAsync();
         DataServices.EndBusy();

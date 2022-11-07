@@ -18,7 +18,7 @@
                 <InputSelect @bind-Value=Cate class="form-control">
                     @foreach (AssetCatEnum item in typeof(AssetCatEnum).GetEnumValues())
                     {
-                        <option value="@item">@item.GetLocalizeName()</option>
+                        <option value="@item">@item.GetLocalizedName()</option>
                     }
                 </InputSelect>
                 <label>@Loc["Name"]</label>
@@ -34,7 +34,7 @@
                 <InputSelect @bind-Value=Building.Structure class="form-control">
                     @foreach (AssetStructEnum item in typeof(AssetStructEnum).GetEnumValues())
                     {
-                        <option value="@item">@item.GetLocalizeName()</option>
+                        <option value="@item">@item.GetLocalizedName()</option>
                     }
                 </InputSelect>
                 <div class="DropArea" style="margin:20px">
@@ -154,7 +154,7 @@
                         <InputSelect class="form-control" @bind-Value=@Building.Shape>
                             @foreach (BuildShapeEnum item in typeof(BuildShapeEnum).GetEnumValues())
                             {
-                                <option value="@item">@item.GetLocalizeName()</option>
+                                <option value="@item">@item.GetLocalizedName()</option>
                             }
                         </InputSelect>
                         <div class="input-group-append">
@@ -223,7 +223,7 @@
                 {
                     <tr>
                         <td>@f.File.FileName</td>
-                        <td>@f.Type.GetLocalizeName()</td>
+                        <td>@f.Type.GetLocalizedName()</td>
                         <td><button class="Ghost" @onclick="()=>DownloadFile(f)"><span class="oi oi-cloud-download"></span></button></td>
                     </tr>
                 }

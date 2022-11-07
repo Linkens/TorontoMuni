@@ -12,9 +12,9 @@ namespace ExpertCities.Data
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public int Building_ID { get; set; }
-        [ForeignKey(nameof(Building_ID))]
-        public Asset Building { get; set; }
+        public int Asset_ID { get; set; }
+        [ForeignKey(nameof(Asset_ID))]
+        public Asset Asset { get; set; }
         public string? ExternalAffectation { get; set; }
         public int? Workforce_ID { get; set; }
         [ForeignKey(nameof(Workforce_ID))]

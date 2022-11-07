@@ -12,9 +12,9 @@ namespace ExpertCities.Data
     {
         [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public int? Building_ID { get; set; }
-        [ForeignKey(nameof(Building_ID))]
-        public Asset? Building { get; set; }
+        public int? Asset_ID { get; set; }
+        [ForeignKey(nameof(Asset_ID))]
+        public Asset? Asset { get; set; }
         public bool IsInternal { get; set; }
         public WorkStateEnum State { get; set; }
         public string Summary { get; set; }

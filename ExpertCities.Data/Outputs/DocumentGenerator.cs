@@ -76,11 +76,11 @@ namespace ExpertCities.Data
             Row.Cells[0].MergeRight = 5;
             Row = Table.AddRow();
             Row.Cells[0].AddParagraph(Loc["Category"]);
-            Row.Cells[1].AddParagraph(Building.Category.GetLocalizeName());
+            Row.Cells[1].AddParagraph(Building.Category.GetLocalizedName());
             Row.Cells[2].AddParagraph(Loc["Name"]);
             Row.Cells[3].AddParagraph(Building.Denomination);
             Row.Cells[4].AddParagraph(Loc["Structure"]);
-            Row.Cells[5].AddParagraph(Building.Structure.GetLocalizeName());
+            Row.Cells[5].AddParagraph(Building.Structure.GetLocalizedName());
             Row = Table.AddRow();
             Row.Cells[0].AddParagraph(Loc["Dates"]).Format.Font.Bold = true;
             Row.Cells[0].MergeRight = 5;
@@ -138,7 +138,7 @@ namespace ExpertCities.Data
             Row.Cells[0].AddParagraph(Loc["Depth"]);
             Row.Cells[1].AddParagraph($"{Building.Depth} m");
             Row.Cells[2].AddParagraph(Loc["Shape"]);
-            Row.Cells[3].AddParagraph($"{Building.Shape.GetLocalizeName()}");
+            Row.Cells[3].AddParagraph($"{Building.Shape.GetLocalizedName()}");
             Row.Cells[4].AddParagraph(Loc["Volume"]);
             Row.Cells[5].AddParagraph($"{Building.Volume} m3");
             SetBorders(Table);

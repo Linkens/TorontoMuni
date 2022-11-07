@@ -27,5 +27,6 @@ namespace ExpertCities.Data
         {
             return new LocalizedString[] { new LocalizedString(_Entity.Value, _Entity.Value), new LocalizedString(_Entity.Value, _Entity.ValueCA) };
         }
+
     }
 }

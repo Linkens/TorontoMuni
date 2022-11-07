@@ -1,0 +1,49 @@
+﻿<EditForm Model="Inventory">
+    <label>@Loc["Method"]</label>
+    <InputSelect class="form-control" @bind-Value="Inventory.Method">
+        @foreach (Enum item in typeof(InventoryMethodEnum).GetEnumValues())
+        {
+            <option value="@item">@item.GetLocalizedName()</option>
+        }
+    </InputSelect>
+    @if (Inventory.Method == InventoryMethodEnum.Uniformat)
+    {
+        <label>@Loc["Uniformat"]</label>
+
+        <div class="input-group">
+            <div class="form-control">@Inventory.Uniformat?.GetLocalizedValue()</div>
+            <button class="btn btn-outline-secondary" type="button" @onclick=GetUniformat><span class="oi oi-magnifying-glass"></span></button>
+        </div>
+    }
+    else
+    {
+        <label>@Loc["Item"]</label>
+        <input @bind-value=@Inventory.Item class="form-control" />
+    }
+</EditForm>
+<div class="d-flex justify-content-center mt-2">
+    <button @onclick=Close class="btn btn-primary" type="submit"><span class="oi oi-check"></span></button>
+</div>
+@code {
+    [Parameter] public ECContext c { get; set; }
+    [Parameter] public Inventory Inventory { get; set; }
+    [Parameter] public List<Uniformat> Formats { get; set; }
+    [Parameter] public IStringLocalizer Loc { get; set; }
+
+    protected async Task GetUniformat()
+    {
+        var Helper = new SearchHelper<Uniformat>(Formats);
+        Helper.GetDisplay = w => w.GetLocalizedValue();
+        Helper.GetSimpleSearch = w => w.GetLocalizedValue();
+        var Res = await Dialog.OpenAsync<SearchItemView<Uniformat>>("", new Dictionary<string, object> { { "Helper", Helper } });
+        if (Res != null)
+        {
+            Inventory.Uniformat = Helper.Selected;
+        }
+    }
+    protected async Task Close()
+    {
+        await c.SaveChangesAsync();
+        Dialog.Close();
+    }
+}

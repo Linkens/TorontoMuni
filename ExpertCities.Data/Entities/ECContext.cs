@@ -15,6 +15,7 @@ namespace ExpertCities.Data
         public DbSet<Work> Works { get; set; }
         public DbSet<HostedFile> HostedFiles { get; set; }
         public DbSet<Workforce> Workforce { get; set; }
+        public DbSet<Uniformat> Uniformats { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
