@@ -70,7 +70,7 @@
         if (int.TryParse(ID, out int Value))
         {
             Building = await Context.Buildings.Include(b => b.Inspections)
-            .Include(b => b.Images).Include(b => b.Files).Include(w => w.Works).ThenInclude(w => w.Actions).FirstOrDefaultAsync(b => b.ID == Value);
+            .Include(b => b.Images).Include(b => b.Files).Include(w => w.Works).ThenInclude(w => w.Actions).FirstOrDefaultAsync(b => b.ID == Value && b.Type == AssetTypeEnum.Building);
             if (Building != null)
             {
                 var l = await Context.Choices.Where(c => c.Filter == ChoiceListEnum.Denomination).ToListAsync();
