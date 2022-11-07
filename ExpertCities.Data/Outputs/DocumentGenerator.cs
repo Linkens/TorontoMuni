@@ -19,7 +19,7 @@ namespace ExpertCities.Data
     public class DocumentGenerator
     {
         public static Color AccentColor = new Color(60, 20, 80);
-        public MemoryStream CreateBuildingSummary(Building Building, string urlPath, IStringLocalizer Loc)
+        public MemoryStream CreateBuildingSummary(Asset Building, string urlPath, IStringLocalizer Loc)
         {
             var Doc = new Document();
 
@@ -37,7 +37,7 @@ namespace ExpertCities.Data
             Renderer.Save(Mem, false);
             return Mem;
         }
-        void CreateHeader(Document Doc, Section Sec, Building Building, string urlPath)
+        void CreateHeader(Document Doc, Section Sec, Asset Building, string urlPath)
         {
             var sectionWidth = Sec.PageSetup.PageWidth.Point - Sec.PageSetup.LeftMargin.Point - Sec.PageSetup.RightMargin.Point;
             var T = Sec.Headers.Primary.AddTable();
@@ -60,7 +60,7 @@ namespace ExpertCities.Data
             var Im2 = Par2.AddImage(ImageSource.FromBinary("QRCode", () => Raw));
             Im2.Height = "3cm"; Im2.LockAspectRatio = true; Im2.Left = ShapePosition.Center;
         }
-        void CreateDocument(Document Doc, Section Sec, Building Building, IStringLocalizer Loc)
+        void CreateDocument(Document Doc, Section Sec, Asset Building, IStringLocalizer Loc)
         {
             Sec.AddParagraph().AddLineBreak();
             var sectionWidth = Sec.PageSetup.PageWidth.Point - Sec.PageSetup.LeftMargin.Point - Sec.PageSetup.RightMargin.Point;

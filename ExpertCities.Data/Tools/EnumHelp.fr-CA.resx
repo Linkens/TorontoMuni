@@ -117,37 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BuildCatEnum_Administrative" xml:space="preserve">
+  <data name="AssetCatEnum_Administrative" xml:space="preserve">
     <value>Administratif</value>
   </data>
-  <data name="BuildCatEnum_Agricultural" xml:space="preserve">
+  <data name="AssetCatEnum_Agricultural" xml:space="preserve">
     <value>Agricole</value>
   </data>
-  <data name="BuildCatEnum_Industrial" xml:space="preserve">
+  <data name="AssetCatEnum_Industrial" xml:space="preserve">
     <value>Industriel</value>
   </data>
-  <data name="BuildCatEnum_Recreational" xml:space="preserve">
+  <data name="AssetCatEnum_Recreational" xml:space="preserve">
     <value>Récréatif</value>
   </data>
-  <data name="BuildCatEnum_Residential" xml:space="preserve">
+  <data name="AssetCatEnum_Residential" xml:space="preserve">
     <value>Résidentiel</value>
   </data>
-  <data name="BuildCatEnum_School" xml:space="preserve">
+  <data name="AssetCatEnum_School" xml:space="preserve">
     <value>École</value>
   </data>
-  <data name="BuildFileTypeEnum_DataSheetsrawin" xml:space="preserve">
+  <data name="FileTypeEnum_DataSheetsrawin" xml:space="preserve">
     <value>Fiches techniques</value>
   </data>
-  <data name="BuildFileTypeEnum_Drawing" xml:space="preserve">
+  <data name="FileTypeEnum_Drawing" xml:space="preserve">
     <value>Plan</value>
   </data>
-  <data name="BuildFileTypeEnum_Other" xml:space="preserve">
+  <data name="FileTypeEnum_Other" xml:space="preserve">
     <value>Autre</value>
   </data>
-  <data name="BuildFileTypeEnum_Quotation" xml:space="preserve">
+  <data name="FileTypeEnum_Quotation" xml:space="preserve">
     <value>Devis</value>
   </data>
-  <data name="BuildFileTypeEnum_WorkShopDrawing" xml:space="preserve">
+  <data name="FileTypeEnum_WorkShopDrawing" xml:space="preserve">
     <value>Dessin d'atelier</value>
   </data>
   <data name="BuildShapeEnum_Irregular" xml:space="preserve">
@@ -165,22 +165,22 @@
   <data name="BuildShapeEnum_Triangular" xml:space="preserve">
     <value>Triangulaire</value>
   </data>
-  <data name="BuildStructEnum_Concrete" xml:space="preserve">
+  <data name="AssetStructEnum_Concrete" xml:space="preserve">
     <value>Béton</value>
   </data>
-  <data name="BuildStructEnum_Metal" xml:space="preserve">
+  <data name="AssetStructEnum_Metal" xml:space="preserve">
     <value>Métal</value>
   </data>
-  <data name="BuildStructEnum_Other" xml:space="preserve">
+  <data name="AssetStructEnum_Other" xml:space="preserve">
     <value>Autre</value>
   </data>
-  <data name="BuildStructEnum_Wood" xml:space="preserve">
+  <data name="AssetStructEnum_Wood" xml:space="preserve">
     <value>Bois</value>
   </data>
-  <data name="BuildStructEnum_Wood_Concrete_Mix" xml:space="preserve">
+  <data name="AssetStructEnum_Wood_Concrete_Mix" xml:space="preserve">
     <value>Bois &amp; Béton</value>
   </data>
-  <data name="BuildStructEnum_Wood_Metal_Mix" xml:space="preserve">
+  <data name="AssetStructEnum_Wood_Metal_Mix" xml:space="preserve">
     <value>Bois &amp; Métal</value>
   </data>
   <data name="InspectionTypeEnum_Scheduled" xml:space="preserve">

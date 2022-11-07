@@ -16,7 +16,7 @@
             <div class="d-flex flex-column">
                 <label>@Loc["Category"]</label>
                 <InputSelect @bind-Value=Cate class="form-control">
-                    @foreach (BuildCatEnum item in typeof(BuildCatEnum).GetEnumValues())
+                    @foreach (AssetCatEnum item in typeof(AssetCatEnum).GetEnumValues())
                     {
                         <option value="@item">@item.GetLocalizeName()</option>
                     }
@@ -32,7 +32,7 @@
                 </datalist>
                 <label>@Loc["Structure"]</label>
                 <InputSelect @bind-Value=Building.Structure class="form-control">
-                    @foreach (BuildStructEnum item in typeof(BuildStructEnum).GetEnumValues())
+                    @foreach (AssetStructEnum item in typeof(AssetStructEnum).GetEnumValues())
                     {
                         <option value="@item">@item.GetLocalizeName()</option>
                     }
@@ -249,14 +249,14 @@
 }
 
 @code {
-    public BuildCatEnum Cate
+    public AssetCatEnum Cate
     { get { return Building.Category; } set { Building.Category = value; Building.Denomination = ""; } }
-    [Parameter] public Building Building { get; set; }
+    [Parameter] public Asset Building { get; set; }
     [Parameter] public List<EntityLocalizer<ChoiceList>> Denominations { get; set; }
     [Parameter] public ECContext c { get; set; }
     public List<string> GetDenom()
     {
-        return Denominations.Where(d => Building.Category.HasFlag((BuildCatEnum)d.Entity.Key)).Select(d => d[""].Value).ToList();
+        return Denominations.Where(d => Building.Category.HasFlag((AssetCatEnum)d.Entity.Key)).Select(d => d[""].Value).ToList();
     }
 
     protected async Task Save()
@@ -266,7 +266,7 @@
     }
     protected async Task UploadFile()
     {
-        var NewFile = new BuildingFile { Type = BuildFileTypeEnum.Other };
+        var NewFile = new BuildingFile { Type = FileTypeEnum.Other };
         var File = await Dialog.OpenAsync<UploadFileView>("", new Dictionary<string, object> { { "BuildingFile", NewFile } });
         if (File != null)
         {

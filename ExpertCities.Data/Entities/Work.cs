@@ -14,7 +14,7 @@ namespace ExpertCities.Data
         public int ID { get; set; }
         public int? Building_ID { get; set; }
         [ForeignKey(nameof(Building_ID))]
-        public Building? Building { get; set; }
+        public Asset? Building { get; set; }
         public bool IsInternal { get; set; }
         public WorkStateEnum State { get; set; }
         public string Summary { get; set; }

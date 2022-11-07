@@ -10,7 +10,7 @@ namespace ExpertCities.Data
 {
     public class ECContext : IdentityDbContext<Workforce,Role, int>
     {
-        public DbSet<Building> Buildings { get; set; }
+        public DbSet<Asset> Buildings { get; set; }
         public DbSet<ChoiceList> Choices { get; set; }
         public DbSet<Work> Works { get; set; }
         public DbSet<HostedFile> HostedFiles { get; set; }

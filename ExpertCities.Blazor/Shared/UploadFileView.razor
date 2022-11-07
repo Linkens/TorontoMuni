@@ -5,7 +5,7 @@
         <EditForm Model="this">
             <label>Type</label>
             <InputSelect class="form-control" @bind-Value="BuildingFile.Type">
-                @foreach (BuildFileTypeEnum item in typeof(BuildFileTypeEnum).GetEnumValues())
+                @foreach (FileTypeEnum item in typeof(FileTypeEnum).GetEnumValues())
                 {
                     <option value="@item">@item.GetLocalizeName()</option>
                 }

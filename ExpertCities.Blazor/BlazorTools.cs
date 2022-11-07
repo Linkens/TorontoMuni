@@ -19,7 +19,7 @@ namespace ExpertCities
        
             await JS.InvokeVoidAsync("SignInMapBox", Token, Center, Zoom);
         }
-        public static async Task AddLocation(this IJSRuntime JS, List<Building> Buildings, string BaseUrl, IStringLocalizer Loc)
+        public static async Task AddLocation(this IJSRuntime JS, List<Asset> Buildings, string BaseUrl, IStringLocalizer Loc)
         {
             var Helper = new JsonHelper();
             foreach (var item in Buildings)

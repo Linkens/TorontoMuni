@@ -15,10 +15,10 @@ namespace ExpertCities.Data
         public int ID { get; set; }
         public int Building_ID { get; set; }
         [ForeignKey(nameof(Building_ID))]
-        public Building Building { get; set; }
+        public Asset Building { get; set; }
         public int File_ID { get; set; }
         [ForeignKey(nameof(File_ID))]
         public HostedFile File { get; set; }
-        public BuildFileTypeEnum Type { get; set; }
+        public FileTypeEnum Type { get; set; }
     }
 }

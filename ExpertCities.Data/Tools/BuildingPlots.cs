@@ -11,7 +11,7 @@ namespace ExpertCities.Data
 {
     public static class BuildingPlots
     {
-        public static PlotModel GetChartWork(Building Build)
+        public static PlotModel GetChartWork(Asset Build)
         {
             var Plot = new PlotModel();
             Plot.Title = "Work Task";

@@ -27,7 +27,7 @@ namespace ExpertCities.Blazor
         public Geometry Geometry { get; set; }
         [JsonPropertyName("properties")]
         public Properties Properties { get; set; }
-        public Feature(Building Build, string BaseUrl, IStringLocalizer Loc)
+        public Feature(Asset Build, string BaseUrl, IStringLocalizer Loc)
         {
             Properties = new Properties(Build, BaseUrl, Loc);
             Geometry = new Geometry(Build);
@@ -39,7 +39,7 @@ namespace ExpertCities.Blazor
         public string Type { get; set; } = "Point";
         [JsonPropertyName("coordinates")]
         public float[] Coordinates { get; set; }
-        public Geometry(Building Build)
+        public Geometry(Asset Build)
         {
             Coordinates = new float[] { Build.Lat, Build.Long };
         }
@@ -52,7 +52,7 @@ namespace ExpertCities.Blazor
         public string Icon { get; set; }
         [JsonPropertyName("description")]
         public string Description { get; set; }
-        public Properties(Building Build, string BaseUrl, IStringLocalizer Loc)
+        public Properties(Asset Build, string BaseUrl, IStringLocalizer Loc)
         {
             Title = Build.Denomination;
             Description = $"<a class=\"text-center\" target=\"_blank\" href=\"{BaseUrl}Assets/Building/{Build.ID}\">{Build.Denomination}</a> {Build.Description} <br/><table class=\"accent\" style=\"width:100%;\"><tr>" +

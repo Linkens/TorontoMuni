@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExpertCities.Data
 {
-    public class Building
+    public class Asset
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public BuildCatEnum Category { get; set; }
-        public BuildStructEnum Structure { get; set; }
+        public AssetCatEnum Category { get; set; }
+        public AssetStructEnum Structure { get; set; }
         public BuildShapeEnum Shape { get; set; }
         public string? Denomination { get; set; }
 
@@ -50,7 +50,7 @@ namespace ExpertCities.Data
 
         public int Building_ID { get; set; }
         [ForeignKey(nameof(Building_ID))]
-        public Building Building { get; set; }
+        public Asset Building { get; set; }
         public byte[] Image { get; set; }
     }
 }

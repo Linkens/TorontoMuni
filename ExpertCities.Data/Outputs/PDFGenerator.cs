@@ -37,7 +37,7 @@ namespace ExpertCities.Data
             BoldFont = new XFont("Calibri", 8, XFontStyle.Bold);
             HeaderBrush = new XSolidBrush(XColors.Black);
         }
-        public MemoryStream GetBuilding(Building Build, string urlPath, IStringLocalizer Loc)
+        public MemoryStream GetBuilding(Asset Build, string urlPath, IStringLocalizer Loc)
         {
             var m = new MemoryStream();
             Doc = new PdfDocument();
@@ -57,7 +57,7 @@ namespace ExpertCities.Data
             m.Position = 0;
             return m;
         }
-        public void PrintTitle(Building Build, PdfPage p, IStringLocalizer Loc)
+        public void PrintTitle(Asset Build, PdfPage p, IStringLocalizer Loc)
         {
             var H = GFX.MeasureString(Loc["Building general data"], HeaderFont).Height;
             GFX.DrawString(Loc["Building general data"], HeaderFont, HeaderBrush, 10, CurrentY);
@@ -69,7 +69,7 @@ namespace ExpertCities.Data
             GFX.DrawString($"{Loc["Structure"]} : {Build.Structure}", HeaderFont, HeaderBrush, 10, CurrentY);
 
         }
-        public void PrintImage(Building Build, PdfPage p)
+        public void PrintImage(Asset Build, PdfPage p)
         {
             if (Build.Images.Any())
             {

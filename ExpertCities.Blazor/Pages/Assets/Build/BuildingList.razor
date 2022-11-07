@@ -35,7 +35,7 @@
 </MainLoading>
 @code {
     protected List<ChoiceList> Denominations;
-    protected List<Building> Buildings;
+    protected List<Asset> Buildings;
     protected override async Task OnInitializedAsync()
     {
         DataServices.SetBusy(GlobalLoc["Loading ..."]);
@@ -57,7 +57,7 @@
         //}
         await base.OnAfterRenderAsync(firstRender);
     }
-    protected async Task Detail(Building Bat)
+    protected async Task Detail(Asset Bat)
     {
         await Context.Entry(Bat).Collection(b => b.Images).LoadAsync();
         await Context.Entry(Bat).Collection(b => b.Files).Query().Include(f => f.File).LoadAsync();
@@ -66,7 +66,7 @@
     }
     protected async Task AddBat()
     {
-        var Bat = new Building { Denomination = Localizer["New"] };
+        var Bat = new Asset { Denomination = Localizer["New"] };
         Bat.Files = new List<BuildingFile>();
         var Return = await Dialog.OpenAsync<BuildingDetail>(GlobalLoc["Building general data"],
         new Dictionary<string, object> { { "Building", Bat }, { "Denominations", Denominations.Select(d => new EntityLocalizer<ChoiceList>(d)).ToList() }, { "c", Context } }, new DialogOptions { Width = "90%", ShowTitle = true });
