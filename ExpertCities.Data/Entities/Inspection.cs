@@ -15,6 +15,9 @@ namespace ExpertCities.Data
         public int Asset_ID { get; set; }
         [ForeignKey(nameof(Asset_ID))]
         public Asset Asset { get; set; }
+        public int? Inventory_ID { get; set; }
+        [ForeignKey(nameof(Inventory_ID))]
+        public Inventory? Inventory { get; set; }
         public string? ExternalAffectation { get; set; }
         public int? Workforce_ID { get; set; }
         [ForeignKey(nameof(Workforce_ID))]

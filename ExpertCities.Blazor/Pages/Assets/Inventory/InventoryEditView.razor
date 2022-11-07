@@ -20,15 +20,72 @@
         <label>@Loc["Item"]</label>
         <input @bind-value=@Inventory.Item class="form-control" />
     }
+    <label>@Loc["Quantity"]</label>
+    <input class="form-control" type="number" @bind-value=Inventory.Quantity />
+    <div class="row">
+        <div class="col-xl-6">
+            <RadzenAccordion class="my-2">
+                <Items>
+                    <RadzenAccordionItem Text="@Loc["Make"]" Icon="copyright" Selected=@IsMake>
+                        <label>@Loc["Manufacturer"]</label>
+                        <input class="form-control" @bind-value=Inventory.Manufacturer />
+                        <label>@Loc["Brand"]</label>
+                        <input class="form-control" @bind-value=Inventory.Brand />
+                        <label>@Loc["Series"]</label>
+                        <input class="form-control" @bind-value=Inventory.Series />
+                    </RadzenAccordionItem>
+                </Items>
+            </RadzenAccordion>
+        </div>
+        <div class="col-xl-6">
+            <RadzenAccordion class="my-2">
+                <Items>
+                    <RadzenAccordionItem Text="@Loc["Dimensions"]" Icon="extension" Selected=@IsDimension>
+                        <label>@Loc["Length"]</label>
+                        <input class="form-control" type="number" @bind-value=Inventory.Length />
+                        <label>@Loc["Height"]</label>
+                        <input class="form-control" type="number" @bind-value=Inventory.Height />
+                        <label>@Loc["Width"]</label>
+                        <input class="form-control" type="number" @bind-value=Inventory.Width />
+                          <label>@Loc["Length"]</label>
+                        <input class="form-control" type="number" @bind-value=Inventory.Length />
+                        <label>@Loc["Surface"]</label>
+                        <input class="form-control" type="number" @bind-value=Inventory.Surface />
+                        <label>@Loc["Volume"]</label>
+                        <input class="form-control" type="number" @bind-value=Inventory.Volume />
+                    </RadzenAccordionItem>
+                </Items>
+            </RadzenAccordion>
+        </div>
+    </div>
 </EditForm>
+<div class="form-floating">
+    <textarea class="form-control" @bind=Inventory.Description style="min-height:10rem;" placeholder=" ">
+    </textarea>
+    <label>@Loc["Description"]</label>
+</div>
+<div class="form-floating mt-3">
+    <textarea class="form-control" @bind=Inventory.Comments style="min-height:10rem;" placeholder=" ">
+    </textarea>
+    <label>@Loc["Comments"]</label>
+</div>
 <div class="d-flex justify-content-center mt-2">
     <button @onclick=Close class="btn btn-primary" type="submit"><span class="oi oi-check"></span></button>
 </div>
 @code {
+    protected bool IsDimension;
+    protected bool IsMake;
     [Parameter] public ECContext c { get; set; }
     [Parameter] public Inventory Inventory { get; set; }
     [Parameter] public List<Uniformat> Formats { get; set; }
     [Parameter] public IStringLocalizer Loc { get; set; }
+
+    protected override void OnInitialized()
+    {
+        IsDimension = Inventory.Length > 0 || Inventory.Surface > 0 || Inventory.Width > 0 || Inventory.Volume > 0 || Inventory.Height > 0;
+        IsMake = !string.IsNullOrWhiteSpace(Inventory.Manufacturer) || !string.IsNullOrWhiteSpace(Inventory.Brand) || !string.IsNullOrWhiteSpace(Inventory.Series);
+        base.OnInitialized();
+    }
 
     protected async Task GetUniformat()
     {

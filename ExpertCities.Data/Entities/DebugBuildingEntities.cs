@@ -63,8 +63,9 @@ namespace ExpertCities.Data
 
         private static void CreateInventory(ECContext c, Asset b1, List<Uniformat> Formats)
         {
-            b1.Inventory = new List<Inventory> { new Inventory { Exterior = true, Uniformat = Formats.First(u => u.Code == "A202003"), Method = InventoryMethodEnum.Uniformat } };
-            b1.Inventory.Add(new Inventory { Exterior = true, Item = "Special item", Method = InventoryMethodEnum.Legacy });
+            b1.Inventory = new List<Inventory> { new Inventory { Exterior = true, Uniformat = Formats.First(u => u.Code == "A202003"), Method = InventoryMethodEnum.Uniformat, Manufacturer="GE" } };
+            b1.Inventory.Add(new Inventory { Exterior = true, Item = "Special item", Method = InventoryMethodEnum.Legacy ,Width = 12.5f });
+            b1.Inventory.Add(new Inventory { Exterior = true, Uniformat = Formats.First(u => u.Code == "A202002"), Method = InventoryMethodEnum.Uniformat });
         }
 
         static void BuildManyActions(Work w)
